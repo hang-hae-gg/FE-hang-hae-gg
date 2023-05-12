@@ -3,12 +3,14 @@ import React, { useState } from 'react'
 
 function Join() {
   const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`/signup` , {
+      const response = await axios.post(`/signup`, {
         userName,
+        email,
         password,
       }, {})
 
@@ -39,6 +41,12 @@ function Join() {
             >
             </input>
             <input
+                className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-amber-400'
+                placeholder="E-MAIL를 입력하세요"
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+              ></input>
+            <input
               className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-amber-400'
               placeholder="PASSWORD를 입력하세요"
               onChange={(e) => setPassword(e.target.value)}
@@ -47,7 +55,7 @@ function Join() {
           </div>
           <div>
             <button className='mt-12 w-[300px] h-[50px] bg-[#FFD602]  rounded-xl'
-            onClick={handleSubmit}
+              onClick={handleSubmit}
             >SignUp</button>
           </div>
         </div>
