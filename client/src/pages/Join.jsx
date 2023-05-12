@@ -36,7 +36,7 @@ function Join() {
           <div>
             <input
               className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-amber-400'
-              placeholder="ID를 입력하세요"
+              placeholder="ID를 입력하세요 test"
               onChange={(e) => setUserName(e.target.value)}
             >
             </input>
