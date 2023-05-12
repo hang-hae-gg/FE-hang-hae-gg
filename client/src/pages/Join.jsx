@@ -46,7 +46,7 @@ function Join() {
             </input>
           </div>
           <div>
-            <button className='mt-12 w-[300px] h-[50px] bg-[#FFD602]'
+            <button className='mt-12 w-[300px] h-[50px] bg-[#FFD602]  rounded-xl'
             onClick={handleSubmit}
             >SignUp</button>
           </div>
