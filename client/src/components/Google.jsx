@@ -1,10 +1,17 @@
 import React from 'react'
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Cookies from 'js-cookie';
 
 function Google() {
     const responseGoogle = (response) => {
-        console.log(response);
+        try {
+            const token = response.credential
+            Cookies.set('token', token, { expires: 1 / 24 });
+            console.log(token)
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
