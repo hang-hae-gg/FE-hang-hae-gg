@@ -10,9 +10,9 @@ function Login() {
           <button className='mt-6 w-[300px] h-[50px] mb-[20px] shadow-md'>
             <img src={Image} /></button>
           <div className="flex items-center space-x-2">
-            <div className="flex-1 h-[1px] w-[130px] bg-gray-500"></div>
+            <div className="flex-1 h-[1px] w-[130px] bg-gray-300"></div>
             <span className="text-gray-500">OR</span>
-            <div className="flex-1 h-[1px] w-[130px] bg-gray-500"></div>
+            <div className="flex-1 h-[1px] w-[130px] bg-gray-300"></div>
           </div>
           <div>
             <input
