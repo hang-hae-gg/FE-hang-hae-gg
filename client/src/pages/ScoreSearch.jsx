@@ -94,7 +94,7 @@ const TierInfo = styled.div`
 const TierIcon = styled.div`
   width: 100px;
   height: 100px;
-  background: yellow;
+  background: pink;
   border-radius: 10px;
   margin-left: 25px;
 `;
