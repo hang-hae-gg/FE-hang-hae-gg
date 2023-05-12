@@ -1,19 +1,21 @@
-import React from 'react'
-import { BrowserRouter , Route , Routes } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../pages/Login";
 import Join from "../pages/Join";
-import Main from "../pages/Main";
+import { Main } from "../pages/Main";
+import { ScoreSearch } from "../pages/ScoreSearch";
 
 function Router() {
   return (
     <BrowserRouter>
-    <Routes>
-    <Route path="/" element={<Main />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/join" element={<Join />} />
-    </Routes>
-</BrowserRouter>
-  )
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/ScoreSearch" element={<ScoreSearch />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default Router
+export default Router;

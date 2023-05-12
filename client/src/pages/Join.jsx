@@ -27,26 +27,26 @@ function Join() {
   }
 
   return (
-    <div className='flex flex-1 items-center justify-center py-16 bg-[#F5F5F5] h-screen '>
+    <div className='flex flex-1 items-center justify-center py-16 bg-[#FFD602]/50 h-screen '>
       <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center w-[700px] h-[600px] px-10">
         <div className='flex flex-1 flex-col  items-center'>
           <h1 className='text-[50px] font-semibold'>HH.GG</h1>
           <div>
             <input
-              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-black'
+              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-amber-400'
               placeholder="ID를 입력하세요"
               onChange={(e) => setUserName(e.target.value)}
             >
             </input>
             <input
-              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-black'
+              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-amber-400'
               placeholder="PASSWORD를 입력하세요"
               onChange={(e) => setPassword(e.target.value)}
             >
             </input>
           </div>
           <div>
-            <button className='mt-12 w-[300px] h-[50px] bg-[#F5F5F5]'
+            <button className='mt-12 w-[300px] h-[50px] bg-[#FFD602]'
             onClick={handleSubmit}
             >SignUp</button>
           </div>
