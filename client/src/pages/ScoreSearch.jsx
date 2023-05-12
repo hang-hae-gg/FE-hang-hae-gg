@@ -13,12 +13,13 @@ export const ScoreSearch = () => {
           </UserInfo>
           <TierInfo>
             <TierIcon></TierIcon>
-            <div>
+            <TierPercentage>
               <TierName>티어/점수</TierName>
               <WinningRate>승률 (승리 횟수/ 패배 횟수)</WinningRate>
-            </div>
+            </TierPercentage>
           </TierInfo>
         </UserDataDiv>
+        <UserScore></UserScore>
       </Contents>
     </Container>
   );
@@ -100,6 +101,16 @@ const TierIcon = styled.div`
 
 const TierPercentage = styled.div``;
 
-const TierName = styled.div``;
+const TierName = styled.div`
+  padding: 10px;
+`;
 
-const WinningRate = styled.div``;
+const WinningRate = styled.div`
+  padding: 10px;
+`;
+
+const UserScore = styled.div`
+  width: 700px;
+  height: 300px;
+  background-color: white;
+`;
