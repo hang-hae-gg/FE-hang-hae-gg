@@ -1,10 +1,48 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import Cookies from 'js-cookie';
 import Google from '../components/Google';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Login() {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(`/user/login`, {
+        userName,
+        password,
+      })
+
+      const responseStatus = response.status;
+
+      if (responseStatus === 200) {
+        const rowToken = response.headers['access_key'];
+        const rowToken2 = response.headers['refresh_key'];
+
+        const token = rowToken.split(" ")[1]
+        const token2 = rowToken2.split(" ")[1]
+
+        Cookies.set('token', token, { expires: 1 / 24 });
+        Cookies.set('token2', token2, { expires: 1 / 24 });
+
+        alert("로그인에 성공했습니다!")
+        navigate(`/`)
+        window.location.reload();
+      } else {
+        alert(response.data.errorMessage)
+        console.error(response)
+      }
+    } catch (error) {
+      console.error(error)
+      alert(error)
+    }
+  }
+
   return (
     <div className='flex flex-1 items-center justify-center py-16 bg-[#F5F5F5] h-screen '>
       <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center w-[700px] h-[600px] px-10">
@@ -18,17 +56,27 @@ function Login() {
           </div>
           <div>
             <input
-              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-black' placeholder="ID를 입력하세요">
+              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-black'
+              placeholder="ID를 입력하세요"
+              onChange={(e) => setUserName(e.target.value)}
+              value={userName}
+            >
             </input>
             <input
-              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-black' placeholder="PASSWORD를 입력하세요">
+              className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-black'
+              placeholder="PASSWORD를 입력하세요"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            >
             </input>
           </div>
           <div>
-            <button className='mt-12 w-[300px] h-[50px] bg-[#F5F5F5]'>Login</button>
+            <button
+              onClick={handleSubmit}
+              className='mt-12 w-[300px] h-[50px] bg-[#F5F5F5]'>Login</button>
           </div>
           <div className='pt-[17px]'>
-            <span>아이디가 없으신가요?</span> <button className='text-blue-600'>회원가입</button>
+            <span>아이디가 없으신가요?</span> <button onClick={() => navigate(`/join`)} className='text-blue-600'>회원가입</button>
           </div>
         </div>
       </div>
