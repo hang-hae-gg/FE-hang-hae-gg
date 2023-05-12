@@ -22,7 +22,7 @@ export const Main = () => {
             <SearchForm action="">
               <SearchNameDiv>
                 <SearchLabel htmlFor="">Search</SearchLabel>
-                <input></input>
+                <input type="text" placeholder="귀여운 티모"></input>
               </SearchNameDiv>
               <SearchBtn>GG</SearchBtn>
             </SearchForm>
@@ -82,6 +82,9 @@ const SearchNameDiv = styled.div`
     font-size: 14px;
     margin-left: 20px;
     margin-right: 20px;
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
@@ -95,4 +98,5 @@ const SearchBtn = styled.button`
   width: 42px;
   padding-left: 15px;
   padding-right: 15px;
+  font-weight: bold;
 `;
