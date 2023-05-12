@@ -73,7 +73,7 @@ function Login() {
           <div>
             <button
               onClick={handleSubmit}
-              className='mt-12 w-[300px] h-[50px] bg-[#FFD602]'>Login</button>
+              className='mt-12 w-[300px] h-[50px] bg-[#FFD602] rounded-xl'>Login</button>
           </div>
           <div className='pt-[17px]'>
             <span>아이디가 없으신가요?</span> <button onClick={() => navigate(`/join`)} className='text-blue-600'>회원가입</button>
