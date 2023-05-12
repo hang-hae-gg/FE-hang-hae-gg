@@ -17,7 +17,7 @@ function Join() {
             </input>
           </div>
           <div>
-            <button className='mt-12 w-[100px] h-[50px]'>회원가입</button>
+          <button className='mt-12 w-[300px] h-[50px] bg-[#F5F5F5]'>SignUp</button>
           </div>
         </div>
       </div>
