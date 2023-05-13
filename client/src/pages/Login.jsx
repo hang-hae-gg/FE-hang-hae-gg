@@ -41,37 +41,6 @@ function Login() {
     }
   }
 
-  const handleGoogleSubmit = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8080/oauth2/authorization/google`, {
-        withCredentials: true,
-      })
-
-      const responseStatus = response.status;
-
-      if (responseStatus === 200) {
-        const rowToken = response.headers['authorization'];
-        // const rowToken2 = response.headers['refresh_key'];
-
-        const token = rowToken.split(" ")[1]
-        // const token2 = rowToken2.split(" ")[1]
-
-        Cookies.set('token', token, { expires: 1 / 24 });
-        // Cookies.set('token2', token2, { expires: 1 / 24 });
-
-        alert("로그인에 성공했습니다!")
-        navigate(`/`)
-        window.location.reload();
-      } else {
-        alert(response.data.errorMessage)
-        console.error(response)
-      }
-    } catch (error) {
-      console.error(error)
-      alert(error)
-    }
-  }
-
   return (
     <div>
       <div className='flex flex-1 items-center justify-center py-16 bg-[#F3F5F7] h-screen '>
