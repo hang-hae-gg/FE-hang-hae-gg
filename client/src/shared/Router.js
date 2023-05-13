@@ -14,8 +14,8 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/ScoreSearch" element={<ScoreSearch />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/scoresearch" element={<ScoreSearch />} />
       </Routes>
     </BrowserRouter>
   );
