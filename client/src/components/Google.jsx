@@ -8,6 +8,7 @@ function Google() {
         try {
             const token = response.credential
             Cookies.set('token', token, { expires: 1 / 24 });
+            console.log(response)
             console.log(token)
         } catch (error) {
             console.error(error)

@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.message {
+  max-width: 60%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #0084ff;
+  color: white;
+}
+
+.other {
+  align-self: flex-start;
+  background-color: #e5e5ea;
+}
