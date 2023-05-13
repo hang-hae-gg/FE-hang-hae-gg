@@ -49,6 +49,7 @@ function Login() {
             <h1 className='text-[50px] font-bold my-5 text-[#4C8BFF]'>HH.GG</h1>
             {/* <Google /> */}
             <img src={Image}
+            alt="googleloginbtn"
             className='w-[300px]  shadow-md '
             onClick={() => window.location.href = 'http://localhost:8080/oauth2/authorization/google'}
             />
