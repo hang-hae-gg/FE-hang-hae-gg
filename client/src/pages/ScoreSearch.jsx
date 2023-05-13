@@ -19,7 +19,30 @@ export const ScoreSearch = () => {
             </TierPercentage>
           </TierInfo>
         </UserDataDiv>
-        <UserScore></UserScore>
+        <UserWINScore>
+          <GameRecord>
+            <GameMode>솔로랭크</GameMode>
+            <GameResult>WIN</GameResult>
+          </GameRecord>
+          <PlayChampion></PlayChampion>
+          <UserKda>10 / 0 / 5</UserKda>
+        </UserWINScore>
+        <UserLOSEScore>
+          <GameRecord>
+            <GameMode>솔로랭크</GameMode>
+            <GameResult>LOSE</GameResult>
+          </GameRecord>
+          <PlayChampion></PlayChampion>
+          <UserKda>2 / 10 / 1</UserKda>
+        </UserLOSEScore>
+        <UserWINScore>
+          <GameRecord>
+            <GameMode>솔로랭크</GameMode>
+            <GameResult>WIN</GameResult>
+          </GameRecord>
+          <PlayChampion></PlayChampion>
+          <UserKda>5 / 0 / 15</UserKda>
+        </UserWINScore>
       </Contents>
     </Container>
   );
@@ -29,7 +52,7 @@ const Container = styled.div`
   display: flex;
   height: 1000px;
   width: 100%;
-  background-color: beige;
+  background-color: white;
 `;
 
 const Contents = styled.div`
@@ -40,8 +63,8 @@ const Contents = styled.div`
 const UserDataDiv = styled.div`
   display: flex;
   height: 200px;
-  width: 1000px;
-  background: red;
+  width: 1100px;
+  background: #ffd700;
   border-radius: 10px;
   align-items: center;
   margin: 0 auto;
@@ -68,6 +91,7 @@ const UserInfo = styled.div`
 
 const UserNickName = styled.div`
   margin-bottom: 20px;
+  font-weight: bold;
 `;
 
 const RenewalBtn = styled.div`
@@ -86,7 +110,7 @@ const TierInfo = styled.div`
   width: 400px;
   height: 140px;
   background: white;
-  margin: 0px auto 0 auto;
+  margin: 0px 50px 0px auto;
   border-radius: 10px;
   align-items: center;
 `;
@@ -94,7 +118,7 @@ const TierInfo = styled.div`
 const TierIcon = styled.div`
   width: 100px;
   height: 100px;
-  background: yellow;
+  background: #ffd700;
   border-radius: 10px;
   margin-left: 25px;
 `;
@@ -109,8 +133,64 @@ const WinningRate = styled.div`
   padding: 10px;
 `;
 
-const UserScore = styled.div`
-  width: 700px;
-  height: 300px;
-  background-color: white;
+const UserWINScore = styled.div`
+  display: flex;
+  height: 170px;
+  width: 800px;
+  background: #8383ff;
+  border-radius: 10px;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+`;
+
+const UserLOSEScore = styled.div`
+  display: flex;
+  height: 170px;
+  width: 800px;
+  background: #ff8583;
+  border-radius: 10px;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+`;
+
+const GameRecord = styled.div`
+  padding: 50px;
+`;
+
+const GameMode = styled.div`
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+`;
+
+const GameResult = styled.div`
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+`;
+
+const PlayChampion = styled.div`
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 5px;
+`;
+
+const UserKda = styled.div`
+  width: 120px;
+  height: 40px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-radius: 10px;
+  font-weight: bold;
 `;
