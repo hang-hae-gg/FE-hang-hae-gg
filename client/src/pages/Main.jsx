@@ -35,6 +35,7 @@ export const Main = () => {
                       margin: "3px 0px 0px auto",
                       opacity: "40%",
                     }}
+                    alt="Triangle"
                   ></img>
                 </SearchLanguage>
               </div>
