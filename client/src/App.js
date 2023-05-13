@@ -1,7 +1,7 @@
 import Router from "./shared/Router";
 import "./index.css";
 import { setIsAuthenticated, setUserId } from "./redux/modules/authReducer";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import jwt_decode from "jwt-decode";
@@ -9,8 +9,7 @@ import jwt_decode from "jwt-decode";
 function App() {
   const dispatch = useDispatch();
 
-  useEffect = (() => {
-
+  useEffect (() => {
     // 쿠키에서 토큰 가져와서 저장
     const token = Cookies.get('token')
     if (token) {

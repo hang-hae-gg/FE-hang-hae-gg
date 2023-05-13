@@ -4,8 +4,6 @@ import Google from '../components/Google';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function Login() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +11,7 @@ function Login() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`/user/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login`, {
         userName,
         password,
       })
@@ -44,10 +42,11 @@ function Login() {
   }
 
   return (
+    <div>
     <div className='flex flex-1 items-center justify-center py-16 bg-[#FFD602]/50 h-screen '>
       <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center w-[700px] h-[600px] px-10">
         <div className='flex flex-1 flex-col  items-center'>
-          <h1 className='text-[50px] font-semibold'>HH.GG</h1>
+          <h1 className='text-[50px] font-bold'>HH.GG</h1>
           <Google />
           <div className="flex items-center space-x-2">
             <div className="flex-1 h-[1px] w-[130px] bg-gray-300"></div>
@@ -80,6 +79,7 @@ function Login() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }
