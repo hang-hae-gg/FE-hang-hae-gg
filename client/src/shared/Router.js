@@ -6,7 +6,6 @@ import { ScoreSearch } from "../pages/ScoreSearch";
 import Detail from "../pages/Detail";
 import SignUp from "../pages/SignUp";
 
-
 function Router() {
   return (
     <BrowserRouter>
@@ -15,7 +14,7 @@ function Router() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/ScoreSearch" element={<ScoreSearch />} />
+        <Route path="/scoresearch" element={<ScoreSearch />} />
       </Routes>
     </BrowserRouter>
   );

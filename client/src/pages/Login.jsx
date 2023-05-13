@@ -78,7 +78,6 @@ function Login() {
         <div className="max-w-sm mx-auto bg-white shadow-md flex items-center w-[700px] h-[600px] px-10">
           <div className='flex flex-1 flex-col  items-center'>
             <h1 className='text-[50px] font-bold my-5 text-[#5383e8]'>HH.GG</h1>
-            {/* <Google /> */}  
             <img src={Image}
             alt="googleloginbtn"
             className='w-[300px]  shadow-md '
