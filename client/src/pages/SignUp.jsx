@@ -37,10 +37,10 @@ const Step2 = ({ nextStep, prevStep, setEmail }) => {
             <div className='flex flex-1 items-center justify-center bg-[#F3F5F7] h-screen'>
                 <div className="max-w-[600px] mx-auto bg-white shadow-md flex items-center w-[600px] h-screen px-10 ">
                     <div className='flex flex-1 flex-col  items-center gap-[100px]'>
-                        <h1 className='text-[70px] font-bold text-[#4C8BFF]'>HH.GG</h1>
+                        <h1 className='text-[70px] font-bold text-[#5383e8]'>HH.GG</h1>
                         <div>
                             <input
-                                className='bg-transparent border-b py-3 mt-10 outline-none w-[300px] focus:border-[#4C8BFF]'
+                                className='bg-transparent border-b py-3 mt-10 outline-none w-[300px] focus:border-[#5383e8]'
                                 placeholder="E-MAIL을 입력하세요"
                                 onChange={(e) => setEmail(e.target.value)}
                             >
@@ -67,7 +67,7 @@ const Step3 = ({ prevStep, handleSubmit, setPassword }) => {
         <div className='flex flex-1 items-center justify-center bg-[#F3F5F7] h-screen'>
             <div className="max-w-[600px] mx-auto bg-white shadow-md flex items-center w-[600px] h-screen px-10 ">
                 <div className='flex flex-1 flex-col  items-center gap-[100px]'>
-                    <h1 className='text-[70px] font-bold text-[#4C8BFF]'>HH.GG</h1>
+                    <h1 className='text-[70px] font-bold text-[#5383e8]'>HH.GG</h1>
                     <div>
                         <input
                             className='bg-transparent border-b py-3 mt-10 outline-none w-[300px] focus:border-[#4C8BFF]'
