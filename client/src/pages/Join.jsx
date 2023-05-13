@@ -29,10 +29,10 @@ function Join() {
   }
 
   return (
-    <div className='flex flex-1 items-center justify-center py-16 bg-[#FFD602]/50 h-screen '>
-      <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center w-[700px] h-[600px] px-10">
+    <div className='flex flex-1 items-center justify-center py-16 bg-[#F3F5F7] h-screen '>
+      <div className="max-w-sm mx-auto bg-white shadow-md flex items-center w-[700px] h-[600px] px-10">
         <div className='flex flex-1 flex-col  items-center'>
-          <h1 className='text-[50px] font-bold'>HH.GG</h1>
+          <h1 className='text-[50px] font-bold text-[#4C8BFF]'>HH.GG</h1>
           <div>
             <input
               className='bg-transparent border-b py-3 mt-10 outline-none w-full focus:border-amber-400'
@@ -54,7 +54,7 @@ function Join() {
             </input>
           </div>
           <div>
-            <button className='mt-12 w-[300px] h-[50px] bg-[#FFD602]  rounded-xl'
+            <button className='mt-12 w-[300px] h-[50px] bg-[#DDDFE3] '
               onClick={handleSubmit}
             >SignUp</button>
           </div>
