@@ -94,7 +94,7 @@ const UserNickName = styled.div`
   font-weight: bold;
 `;
 
-const RenewalBtn = styled.div`
+const RenewalBtn = styled.button`
   width: 100px;
   height: 40px;
   display: flex;
