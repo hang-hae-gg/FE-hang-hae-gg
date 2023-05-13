@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Cookies from 'js-cookie';
-import Google from '../components/Google';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Image from '../assets/google.png'
 
 function Login() {
   const [userName, setUserName] = useState('');
@@ -47,7 +47,11 @@ function Login() {
         <div className="max-w-sm mx-auto bg-white shadow-md flex items-center w-[700px] h-[600px] px-10">
           <div className='flex flex-1 flex-col  items-center'>
             <h1 className='text-[50px] font-bold my-5 text-[#4C8BFF]'>HH.GG</h1>
-            <Google />
+            {/* <Google /> */}
+            <img src={Image}
+            className='w-[300px]  shadow-md '
+            onClick={() => window.location.href = 'http://localhost:8080/oauth2/authorization/google'}
+            />
             <div className="flex items-center space-x-2 my-5">
               <div className="flex-1 h-[1px] w-[130px] bg-gray-300"></div>
               <span className="text-gray-500">OR</span>
@@ -79,7 +83,7 @@ function Login() {
                 className='mt-12 w-[300px] h-[50px] text-white font-bold bg-[#DDDFE3]'>로그인</button>
             </div>
             <div className='pt-[17px]'>
-              <span>아이디가 없으신가요?</span> <button onClick={() => navigate(`/join`)} className='text-blue-600'>회원가입</button>
+              <span>아이디가 없으신가요?</span> <button onClick={() => navigate(`/signup`)} className='text-blue-600'>회원가입</button>
             </div>
           </div>
         </div>
