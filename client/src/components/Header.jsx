@@ -12,12 +12,12 @@ function Header() {
     console.log(isAuthenticated)
     return (
         <div className='flex justify-center'>
-            <div className='flex flex-1 max-w-[1200px] w-full bg-[#ffffff] h-[65px]  '>
+            <div className='flex flex-1 max-w-[1200px] w-full bg-[#5383e8] h-[65px]  '>
                 <div className='flex flex-1 justify-between mx-10 items-center'>
                     <div className='flex'>
                         <button
                             onClick={() => navigate(`/`)}
-                            className='text-[30px] text-[#FFD602] font-bold'>HH.GG</button>
+                            className='text-[30px] text-[#ffffff] font-bold'>HH.GG</button>
                     </div>
                     <div className='flex gap-10'>
                         {
@@ -25,17 +25,17 @@ function Header() {
                         }
                         <button
                             onClick={() => navigate(`/`)}
-                            className='text-[#000000]'>커뮤니티</button>
+                            className='text-[#ffffff]'>커뮤니티</button>
 
                         {
                             isAuthenticated ?
                                 <button
                                     onClick={() => logout(dispatch)}
-                                    className='text-[#000000]'>로그아웃</button>
+                                    className='text-[#ffffff]'>로그아웃</button>
                                 :
                                 <button
                                     onClick={() => navigate(`/login`)}
-                                    className='text-[#000000]'>로그인</button>
+                                    className='text-[#ffffff]'>로그인</button>
                         }
                     </div>
                 </div>
