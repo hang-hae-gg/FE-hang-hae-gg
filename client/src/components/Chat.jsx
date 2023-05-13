@@ -1,6 +1,8 @@
 import React from 'react'
 
 function Chat() {
+
+    // 본인의 메세지인지 아닌지를 구분하는 isUser
     const messages = [
         { content: "Hello!", isUser: true },
         { content: "Hi, how can I help you?", isUser: false },
@@ -19,6 +21,7 @@ function Chat() {
     return (
         <div className='flex flex-col w-[400px] h-[600px] bg-[#f3f3f3]  rounded-xl'>
             <div className='flex flex-col overflow-y-auto'>
+            {/* isUser가 ture면 오른쪽에서, false면 왼쪽에서 나타남 */}
                 {messages.map((message, index) => (
                     <div key={index} className={`message ${message.isUser ? 'user' : 'other'}`}>
                         {message.content}
