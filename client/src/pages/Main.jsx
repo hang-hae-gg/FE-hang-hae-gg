@@ -1,10 +1,13 @@
 import React from "react";
 import LogoOpacity from "../assets/teemoopacitylow.png";
 import { styled } from "styled-components";
+import Header from "../components/Header";
+
 
 export const Main = () => {
   return (
     <Container>
+      <Header />
       <Contents>
         <LogoDiv>
           <img
