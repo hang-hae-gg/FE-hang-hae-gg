@@ -8,9 +8,9 @@ function Join() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/signup`, {
-        userName,
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signup`, {
         email,
+        nickname:userName,
         password,
       }, {})
 
