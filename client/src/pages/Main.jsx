@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import LogoOpacity from "../assets/teemoopacitylow.png";
 import Triangle from "../assets/triangle.png";
 import { styled } from "styled-components";
 import Header from "../components/Header";
+import ScoreSearch from "./ScoreSearch";
+import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
+  const navigate = useNavigate();
+
+  const [summoners, setSummoners] = useState("");
+
+  const handleChange_summoners = (e) => {
+    setSummoners(e.target.value);
+  };
+
+  console.log(summoners);
+
   return (
     <Container>
       <Header />
@@ -44,9 +56,20 @@ export const Main = () => {
                 <input
                   type="text"
                   placeholder="소환사명, 소환사명, ..."
+                  onChange={handleChange_summoners}
                 ></input>
               </SearchNameDiv>
-              <SearchBtn>.GG</SearchBtn>
+              <SearchBtn
+                onClick={() => {
+                  navigate("/scoresearch", {
+                    state: {
+                      summoners,
+                    },
+                  });
+                }}
+              >
+                .GG
+              </SearchBtn>
             </SearchForm>
           </div>
         </SearchDiv>
