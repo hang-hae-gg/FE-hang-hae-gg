@@ -137,6 +137,7 @@ export const ScoreSearch = () => {
                   style={{
                     borderRadius: "50%",
                   }}
+                  alt="ChampionIcon"
                 />
               </PlayChampion>
               <PlayKda>
@@ -160,6 +161,7 @@ export const ScoreSearch = () => {
                   style={{
                     borderRadius: "50%",
                   }}
+                  alt="ChampionIcon"
                 />
               </PlayChampion>
               <PlayKda>
@@ -183,6 +185,7 @@ export const ScoreSearch = () => {
                   style={{
                     borderRadius: "50%",
                   }}
+                  alt="ChampionIcon"
                 />
               </PlayChampion>
               <PlayKda>
