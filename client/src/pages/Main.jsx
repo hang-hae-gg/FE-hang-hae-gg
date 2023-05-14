@@ -3,7 +3,6 @@ import LogoOpacity from "../assets/teemoopacitylow.png";
 import Triangle from "../assets/triangle.png";
 import { styled } from "styled-components";
 import Header from "../components/Header";
-import ScoreSearch from "./ScoreSearch";
 import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
