@@ -11,33 +11,33 @@ function Login() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login`, {
-        userName,
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, {
+        email:userName,
         password,
       })
 
       const responseStatus = response.status;
 
       if (responseStatus === 200) {
-        const rowToken = response.headers['authorization'];
-        // const rowToken2 = response.headers['refresh_key'];
+        const accessToken = response.headers['authorization'];
+        const refreshToken = response.headers['authorization-refresh'];
 
-        const token = rowToken.split(" ")[1]
+        // const token = rowToken.split(" ")[1]
         // const token2 = rowToken2.split(" ")[1]
 
-        Cookies.set('token', token, { expires: 1 / 24 });
-        // Cookies.set('token2', token2, { expires: 1 / 24 });
+        Cookies.set('access_token', accessToken);
+        Cookies.set('refresh_token', refreshToken);
 
         alert("로그인에 성공했습니다!")
         navigate(`/`)
         window.location.reload();
       } else {
-        alert(response.data.errorMessage)
+        alert(response)
         console.error(response)
       }
     } catch (error) {
       console.error(error)
-      alert(error)
+      alert(error.response.data)
     }
   }
 
@@ -50,7 +50,7 @@ function Login() {
             <img src={Image}
             alt="googleloginbtn"
             className='w-[300px]  shadow-md '
-            onClick={() => window.location.href = 'http://localhost:8080/oauth2/authorization/google'
+            onClick={() => window.location.href = `${process.env.REACT_APP_SERVER_URL}/oauth2/authorization/google`
           }
             />
             <div className="flex items-center space-x-2 my-5">
@@ -65,7 +65,7 @@ function Login() {
               </div>
               <input
                 className='bg-transparent border-b py-3 outline-none w-full focus:border-[#5383e8]'
-                placeholder="ID를 입력하세요"
+                placeholder="E-MAIL를 입력하세요"
                 onChange={(e) => setUserName(e.target.value)}
                 value={userName}
               >
@@ -75,6 +75,7 @@ function Login() {
                 placeholder="PASSWORD를 입력하세요"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
+                type="password"
               >
               </input>
             </div>
