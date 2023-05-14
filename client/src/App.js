@@ -11,7 +11,7 @@ function App() {
 
   useEffect (() => {
     // 쿠키에서 토큰 가져와서 저장
-    const token = Cookies.get('token')
+    const token = Cookies.get('access_token')
     if (token) {
       try {
         const decoded = jwt_decode(token)
