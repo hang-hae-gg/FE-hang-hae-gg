@@ -16,7 +16,6 @@ export const Main = () => {
 
   return (
     <Container>
-      <Header />
       <Contents>
         <LogoDiv>
           <img
@@ -93,7 +92,7 @@ const LogoDiv = styled.div`
   display: flex;
   height: 100%;
   justify-content: center;
-  margin: 50px 0px 50px;
+  margin: 0px 0px 50px;
 `;
 
 const SearchDiv = styled.div`

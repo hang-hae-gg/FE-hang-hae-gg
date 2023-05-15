@@ -10,16 +10,16 @@ axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.interceptors.request.use(
   (config) => {
     // 서버에서 헤더에 token 과 refreshToken 을 가져오는 로직
-    const access_token = Cookies.get("access_token");
-    const refresh_token = Cookies.get("refresh_token");
+    const accessToken = Cookies.get("Authorization");
+    const refreshToken = Cookies.get("Authorization-refresh");
 
-    if (access_token) {
-      config.headers["access_token"] = access_token.trim();
-      config.headers["refresh_token"] = refresh_token.trim();
+    if (accessToken) {
+      config.headers["Authorization"] = accessToken.trim();
+      config.headers["refresh_token"] = refreshToken.trim();
     }
 
     config.headers["Content-Type"] = "application/json";
-    console.log("config:: ", config);
+    // console.log("config:: ", config);
     return config;
   },
   (error) => {

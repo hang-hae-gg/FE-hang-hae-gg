@@ -12,21 +12,21 @@ function Login() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, {
-        email:userName,
+        email: userName,
         password,
       })
 
       const responseStatus = response.status;
 
       if (responseStatus === 200) {
-        const accessToken = response.headers['authorization'];
-        const refreshToken = response.headers['authorization-refresh'];
+        const rowAccessToken = response.headers['authorization'];
+        const rowRefreshToken = response.headers['authorization-refresh'];
 
-        // const token = rowToken.split(" ")[1]
-        // const token2 = rowToken2.split(" ")[1]
+        const accessToken = rowAccessToken.split(" ")[1]
+        const refreshToken = rowRefreshToken.split(" ")[1]
 
-        Cookies.set('access_token', accessToken);
-        Cookies.set('refresh_token', refreshToken);
+        Cookies.set('Authorization', accessToken);
+        Cookies.set('Authorization-refresh', refreshToken);
 
         alert("로그인에 성공했습니다!")
         navigate(`/`)
@@ -41,6 +41,12 @@ function Login() {
     }
   }
 
+  const handleGoogleSubmit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    window.location.href = `${process.env.REACT_APP_SERVER_URL}/oauth2/authorization/google`
+  }
+
   return (
     <div>
       <div className='flex flex-1 items-center justify-center py-16 bg-[#F3F5F7] h-screen '>
@@ -48,10 +54,9 @@ function Login() {
           <div className='flex flex-1 flex-col  items-center'>
             <h1 className='text-[50px] font-bold my-5 text-[#5383e8]'>HH.GG</h1>
             <img src={Image}
-            alt="googleloginbtn"
-            className='w-[300px]  shadow-md '
-            onClick={() => window.location.href = `${process.env.REACT_APP_SERVER_URL}/oauth2/authorization/google`
-          }
+              alt="googleloginbtn"
+              className='w-[300px]  shadow-md '
+              onClick={handleGoogleSubmit}
             />
             <div className="flex items-center space-x-2 my-5">
               <div className="flex-1 h-[1px] w-[130px] bg-gray-300"></div>
