@@ -5,10 +5,12 @@ import { Main } from "../pages/Main";
 import { ScoreSearch } from "../pages/ScoreSearch";
 import Detail from "../pages/Detail";
 import SignUp from "../pages/SignUp";
+import Header from "../components/Header";
 
 function Router() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/detail" element={<Detail />} />
