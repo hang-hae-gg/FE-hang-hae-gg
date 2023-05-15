@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import LogoOpacity from "../assets/teemoopacitylow.png";
 import Triangle from "../assets/triangle.png";
 import { styled } from "styled-components";
-import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
@@ -16,7 +15,6 @@ export const Main = () => {
 
   return (
     <Container>
-      <Header />
       <Contents>
         <LogoDiv>
           <img
@@ -93,7 +91,7 @@ const LogoDiv = styled.div`
   display: flex;
   height: 100%;
   justify-content: center;
-  margin: 50px 0px 50px;
+  margin: 0px 0px 50px;
 `;
 
 const SearchDiv = styled.div`
