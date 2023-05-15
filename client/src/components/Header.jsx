@@ -22,7 +22,7 @@ function Header() {
           </div>
           <div className="flex gap-10">
             {isAuthenticated && <span>{userId}님 환영합니다!</span>}
-            <button onClick={() => navigate(`/`)} className="text-[#ffffff]">
+            <button onClick={() => navigate(`/Community`)} className="text-[#ffffff]">
               커뮤니티
             </button>
 
