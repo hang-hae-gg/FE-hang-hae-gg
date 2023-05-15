@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import Yummi from "../assets/yummiicon.jpeg";
@@ -7,14 +7,20 @@ import RightArrow from "../assets/rightarrow.png";
 import Star from "../assets/star.png";
 import Challenger from "../assets/Challenger.png";
 import Jinx from "../assets/Jinx.webp";
+import { getAPI } from "../axios";
 
 export const ScoreSearch = () => {
   const location = useLocation();
-  console.log(location);
   const summonersInfo = { ...location.state };
-  console.log("summonersInfo ::", summonersInfo);
 
   // TODO GET 호출
+  useEffect(() => {
+    getAPI(`/summonerByName?summonerName=${summonersInfo.summoners}`).then(
+      (data) => {
+        console.log("data :: ", data);
+      }
+    );
+  }, []);
 
   return (
     <Container>
@@ -31,7 +37,7 @@ export const ScoreSearch = () => {
                 </SeasonTier>
               </TierList>
               <UserName>
-                <h1>T1 gumayusi</h1>
+                <h1>최하나</h1>
                 <UserBookMark>
                   <img
                     src={Star}
