@@ -12,7 +12,7 @@ function Header() {
     console.log(isAuthenticated)
     return (
         <div className='flex justify-center'>
-            <div className='flex flex-1 max-w-[1200px] w-full bg-[#5383e8] h-[65px]  '>
+            <div className='flex flex-1 w-full bg-[#5383e8] h-[65px]  '>
                 <div className='flex flex-1 justify-between mx-10 items-center'>
                     <div className='flex'>
                         <button
