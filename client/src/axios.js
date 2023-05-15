@@ -15,7 +15,7 @@ axios.interceptors.request.use(
 
     if (accessToken) {
       config.headers["Authorization"] = accessToken.trim();
-      config.headers["refresh_token"] = refreshToken.trim();
+      config.headers["Authorization-refresh"] = refreshToken.trim();
     }
 
     config.headers["Content-Type"] = "application/json";
