@@ -13,7 +13,7 @@ import scoresearchData from "../scoresearchData";
 export const ScoreSearch = () => {
   const location = useLocation();
   const summonersInfo = { ...location.state };
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
 
   // const data = scoresearchData;
 
