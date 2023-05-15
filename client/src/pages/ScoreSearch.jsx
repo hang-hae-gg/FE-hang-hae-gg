@@ -26,7 +26,7 @@ export const ScoreSearch = () => {
     )
       .then((data) => {
         // TODO 서버 API 완료 시 data.data로 변경
-        setData(scoresearchData);
+        // setData(scoresearchData);
         console.log("data :: ", data);
       })
       .catch((e) => {
