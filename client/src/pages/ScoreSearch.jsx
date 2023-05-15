@@ -20,7 +20,7 @@ export const ScoreSearch = () => {
         console.log("data :: ", data);
       }
     );
-  }, [summonersInfo]);
+  }, [summonersInfo.summoners]);
 
   return (
     <Container>
