@@ -14,8 +14,6 @@ export const Main = () => {
     setSummoners(e.target.value);
   };
 
-  console.log(summoners);
-
   return (
     <Container>
       <Header />
