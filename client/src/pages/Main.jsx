@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import LogoOpacity from "../assets/teemoopacitylow.png";
 import Triangle from "../assets/triangle.png";
 import { styled } from "styled-components";
-import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
