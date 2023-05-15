@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import Yummi from "../assets/yummiicon.jpeg";
@@ -8,7 +8,7 @@ import Star from "../assets/star.png";
 import Challenger from "../assets/Challenger.png";
 import Jinx from "../assets/Jinx.webp";
 import { getAPI } from "../axios";
-import scoresearchData from "../scoresearchData";
+// import scoresearchData from "../scoresearchData";
 
 export const ScoreSearch = () => {
   const location = useLocation();
