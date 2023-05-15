@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Step1 = ({ nextStep, setEmail }) => {
+const Step1 = ({ nextStep, setEmailHandler}) => {
     // 아이디 입력
     return (
         <div>
@@ -14,7 +14,7 @@ const Step1 = ({ nextStep, setEmail }) => {
                             <input
                                 className='bg-transparent border-b py-3 mt-10 outline-none w-[300px] focus:border-[#5383e8]'
                                 placeholder="E-MAIL을 입력하세요"
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => setEmailHandler(e.target.value)}
                             >
                             </input>
                         </div>
@@ -30,7 +30,7 @@ const Step1 = ({ nextStep, setEmail }) => {
     );
 };
 
-const Step2 = ({ nextStep, prevStep, setPassword }) => {
+const Step2 = ({ nextStep, prevStep, setPasswordHandler }) => {
     // 이메일 입력
     return (
         <div>
@@ -42,7 +42,7 @@ const Step2 = ({ nextStep, prevStep, setPassword }) => {
                             <input
                                 className='bg-transparent border-b py-3 mt-10 outline-none w-[300px] focus:border-[#4C8BFF]'
                                 placeholder="PASSWORD를 입력하세요"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => setPasswordHandler(e.target.value)}
                             >
                             </input>
                         </div>
@@ -61,7 +61,7 @@ const Step2 = ({ nextStep, prevStep, setPassword }) => {
     );
 };
 
-const Step3 = ({ prevStep, handleSubmit, setNickname }) => {
+const Step3 = ({ prevStep, handleSubmit, setNicknameHandler }) => {
     // 패스워드 입력
     return (
         <div className='flex flex-1 items-center justify-center bg-[#F3F5F7] h-screen'>
@@ -72,7 +72,7 @@ const Step3 = ({ prevStep, handleSubmit, setNickname }) => {
                         <input
                             className='bg-transparent border-b py-3 mt-10 outline-none w-[300px] focus:border-[#4C8BFF]'
                             placeholder="닉네임을 입력하세요"
-                            onChange={(e) => setNickname(e.target.value)}
+                            onChange={(e) => setNicknameHandler(e.target.value)}
                         >
                         </input>
                     </div>
@@ -122,14 +122,23 @@ const SignUp = () => {
     }
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
-
+    
+    const setEmailHandler = (value) => {
+        setEmail(value)
+    }
+    const setPasswordHandler = (value) => {
+        setPassword(value)
+    }
+    const setNicknameHandler = (value) => {
+        setNickname(value)
+    }
     switch (step) {
         case 1:
-            return <Step1 nextStep={nextStep} setEmail={setEmail} />;
+            return <Step1 nextStep={nextStep} setEmail={setEmail} setEmailHandler={setEmailHandler} />;
         case 2:
-            return <Step2 nextStep={nextStep} prevStep={prevStep} setPassword={setPassword} />;
+            return <Step2 nextStep={nextStep} prevStep={prevStep} setPassword={setPassword} setPasswordHandler={setPasswordHandler} />;
         case 3:
-            return <Step3 prevStep={prevStep} handleSubmit={handleSubmit} setNickname={setNickname} />;
+            return <Step3 prevStep={prevStep} handleSubmit={handleSubmit} setNickname={setNickname} setNicknameHandler={setNicknameHandler} />;
         default:
             return <div>Invalid step</div>;
     }
