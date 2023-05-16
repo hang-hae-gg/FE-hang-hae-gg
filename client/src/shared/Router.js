@@ -14,7 +14,7 @@ function Router() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/community/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/scoresearch" element={<ScoreSearch />} />
