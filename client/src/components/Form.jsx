@@ -75,8 +75,14 @@ function Form() {
           {cards.map((card) => (
             <div key={card.id} className="border border-gray-300 p-4 rounded w-80 h-56">
               <div>
-                <div>닉네임:{card.content1}</div>
+                <div>소환사명:{card.content1}</div>
                 <div>내용:{card.content2}</div>
+                <div className="space-y-4">
+                  <div className="flex justify-start">
+                    <div><button className="text-sm font-bold bg-blue-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">채팅하기</button></div>
+                    <div><button className="text-sm font-bold bg-red-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">게시글 삭제</button></div>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
