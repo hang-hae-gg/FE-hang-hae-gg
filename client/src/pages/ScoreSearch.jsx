@@ -168,7 +168,9 @@ export const ScoreSearch = () => {
                       <GameTime>1분 전</GameTime>
                       <GameLine></GameLine>
                       <GameResult>승리</GameResult>
-                      <GameLength>21분 40초</GameLength>
+                      <GameLength>
+                        {rank.playtimesecond}분 {rank.playtimeminute}초
+                      </GameLength>
                     </GameInfo>
                     <PlayChampion>
                       <img
@@ -194,7 +196,9 @@ export const ScoreSearch = () => {
                       <GameTime>1분 전</GameTime>
                       <GameLine></GameLine>
                       <GameResult>패배</GameResult>
-                      <GameLength>21분 40초</GameLength>
+                      <GameLength>
+                        {rank.playtimesecond}분 {rank.playtimeminute}초
+                      </GameLength>
                     </GameInfo>
                     <PlayChampion>
                       <img
@@ -225,7 +229,7 @@ export const ScoreSearch = () => {
 
 const Container = styled.div`
   display: flex;
-  height: 1000px;
+  height: 100%;
   width: 100%;
   background-color: #ebeef1;
 `;
