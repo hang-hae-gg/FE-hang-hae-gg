@@ -15,7 +15,6 @@ axios.interceptors.request.use(
     }
 
     config.headers["Content-Type"] = "application/json";
-    console.log("config :: ", config);
     return config;
   },
   (error) => {
@@ -46,4 +45,13 @@ export function deleteAPI(url) {
 export function patchAPI(url, data) {
   console.log("PATCH Start, url : ", url, " user : ", data);
   return axios.patch(API_BASE_URL + url, data);
+}
+
+export function boardPostAPI(url, data) {
+  console.log("boardPostAPI Start, url : ", url, " user : ", data);
+  return axios.post(API_BASE_URL + url, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
