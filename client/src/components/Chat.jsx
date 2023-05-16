@@ -30,8 +30,8 @@ function Chat() {
             </div>
             <div className='flex bg-[#fff] w-[400px] mt-auto  rounded-xl'>
                 <div className='flex flex-1 justify-between mx-5 items-center gap-5'>
-                    <input className='bg-transparent border-b m mb-3 mt-5 outline-none w-full focus:border-amber-400'></input>
-                    <button className='bg-[#FFD602] w-[100px] h-[40px] rounded-xl'>보내기</button>
+                    <input className='bg-transparent border-b m mb-3 mt-5 outline-none w-full focus:border-[#5383e8]'></input>
+                    <button className='bg-[#5383e8] w-[100px] h-[40px] rounded-xl'>보내기</button>
                 </div>
             </div>
         </div>
