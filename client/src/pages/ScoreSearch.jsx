@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import Yummi from "../assets/yummiicon.jpeg";
@@ -8,16 +8,15 @@ import Star from "../assets/star.png";
 import Challenger from "../assets/Challenger.png";
 import Jinx from "../assets/Jinx.webp";
 import { getAPI } from "../axios";
-// import scoresearchData from "../scoresearchData";
 
 export const ScoreSearch = () => {
   const location = useLocation();
   const summonersInfo = { ...location.state };
-  // const [data, setData] = useState();
+  const [data, setData] = useState();
 
   // const data = scoresearchData;
 
-  // console.log("data :: ", data);
+  console.log("data :: ", data);
 
   // TODO GET 호출
   useEffect(() => {
@@ -26,7 +25,7 @@ export const ScoreSearch = () => {
     )
       .then((data) => {
         // TODO 서버 API 완료 시 data.data로 변경
-        // setData(scoresearchData);
+        setData(data);
         console.log("data :: ", data);
       })
       .catch((e) => {
