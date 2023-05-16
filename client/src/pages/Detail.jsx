@@ -22,7 +22,7 @@ function Detail() {
       .catch((e) => {
         console.log("e :: ", e);
       });
-  },[]);
+  },[params.id]);
 
 
   return (
