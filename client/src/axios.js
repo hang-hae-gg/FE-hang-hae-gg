@@ -14,7 +14,7 @@ axios.interceptors.request.use(
       config.headers["Authorization"] = "Bearer " + accessToken.trim();
     }
 
-    config.headers["Content-Type"] = "application/json";
+    // config.headers["Content-Type"] = "application/json";
     console.log("config :: ", config);
     return config;
   },
