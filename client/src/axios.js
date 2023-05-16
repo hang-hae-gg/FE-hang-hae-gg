@@ -1,25 +1,21 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// TODO 추후 서버 배포후 API 주소 변경 예정
-// const API_BASE_URL = "http://localhost:3000";
-const API_BASE_URL = "http://43.201.255.143:8080";
+const API_BASE_URL = `${process.env.REACT_APP_SERVER_URL}`;
 
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use(
   (config) => {
-    // 서버에서 헤더에 token 과 refreshToken 을 가져오는 로직
     const accessToken = Cookies.get("Authorization");
-    const refreshToken = Cookies.get("Authorization-refresh");
 
     if (accessToken) {
-      config.headers["Authorization"] = accessToken.trim();
-      config.headers["Authorization-refresh"] = refreshToken.trim();
+      config.headers["Authorization"] = "Bearer " + accessToken.trim();
     }
 
-    config.headers["Content-Type"] = "application/json";
-    // console.log("config:: ", config);
+    // config.headers["Content-Type"] = "application/json";
+    console.log("config :: ", config);
     return config;
   },
   (error) => {

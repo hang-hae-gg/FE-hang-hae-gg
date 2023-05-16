@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import Yummi from "../assets/yummiicon.jpeg";
@@ -12,14 +12,25 @@ import { getAPI } from "../axios";
 export const ScoreSearch = () => {
   const location = useLocation();
   const summonersInfo = { ...location.state };
+  const [data, setData] = useState();
+
+  // const data = scoresearchData;
+
+  console.log("data :: ", data);
 
   // TODO GET 호출
   useEffect(() => {
-    getAPI(`/summonerByName?summonerName=${summonersInfo.summoners}`).then(
-      (data) => {
+    getAPI(
+      `/summonerByName?page=1&size=10&summonerName=${summonersInfo.summoners}`
+    )
+      .then((data) => {
+        // TODO 서버 API 완료 시 data.data로 변경
+        setData(data);
         console.log("data :: ", data);
-      }
-    );
+      })
+      .catch((e) => {
+        console.log("e :: ", e);
+      });
   }, [summonersInfo.summoners]);
 
   return (
@@ -72,10 +83,10 @@ export const ScoreSearch = () => {
                   alt="RightArrow"
                 ></img>
               </RiotBtn>
-              <InfoBtn>
+              <InfoDiv>
                 <RenewalBtn>전적 갱신</RenewalBtn>
                 <TierGraph>티어 그래프</TierGraph>
-              </InfoBtn>
+              </InfoDiv>
               <UserUpdate>최근 업데이트: 방금전</UserUpdate>
             </UserInfo>
           </UserDataDiv>
@@ -311,7 +322,7 @@ const SeasonTier = styled.div`
   width: 105px;
 `;
 
-const InfoBtn = styled.button`
+const InfoDiv = styled.div`
   display: flex;
   margin-top: 8px;
 `;
