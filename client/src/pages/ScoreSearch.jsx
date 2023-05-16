@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
-import Yummi from "../assets/yummiicon.jpeg";
 import RiotIcon from "../assets/RiotIcon.png";
 import RightArrow from "../assets/rightarrow.png";
 import Star from "../assets/star.png";
 import Challenger from "../assets/Challenger.png";
-import Jinx from "../assets/Jinx.webp";
 import { getAPI } from "../axios";
+import SkeletonProfile from "../components/SkeletonProfile";
 
 export const ScoreSearch = () => {
   const location = useLocation();
   const summonersInfo = { ...location.state };
   const [data, setData] = useState();
+  const [winRate, setWinRate] = useState();
 
   // const data = scoresearchData;
-
-  console.log("data :: ", data);
 
   // TODO GET 호출
   useEffect(() => {
@@ -25,196 +23,202 @@ export const ScoreSearch = () => {
     )
       .then((data) => {
         // TODO 서버 API 완료 시 data.data로 변경
-        setData(data);
-        console.log("data :: ", data);
+        if (data.status == 200) {
+          setData(data.data.data);
+        }
       })
       .catch((e) => {
         console.log("e :: ", e);
       });
   }, [summonersInfo.summoners]);
 
+  useEffect(() => {
+    if (data && data.wins && data.losses) {
+      const rate = Math.round((data.wins / (data.wins + data.losses)) * 100);
+      setWinRate(rate);
+    }
+  }, [data]);
+
+  // 전적 갱신 버튼
+
+  // const reloading = () => {
+  //   window.location.reload();
+  // };
+
+  console.log("data ::", data);
+
   return (
     <Container>
-      <Contents>
-        <UserInfoHeader>
-          <UserDataDiv>
-            <IconDiv>
-              <img src={Yummi} alt="Icon"></img>
-            </IconDiv>
-            <UserInfo>
-              <TierList>
-                <SeasonTier>
-                  <b>S2022</b> Challenger
-                </SeasonTier>
-              </TierList>
-              <UserName>
-                <h1>최하나</h1>
-                <UserBookMark>
+      {!data && <SkeletonProfile />}
+      {data && (
+        <Contents>
+          <UserInfoHeader>
+            <UserDataDiv>
+              <IconDiv>
+                <img src={data?.summonerIconUrl} alt="Icon"></img>
+              </IconDiv>
+              <UserInfo>
+                <TierList>
+                  <SeasonTier>
+                    <b>S2022</b> Challenger
+                  </SeasonTier>
+                </TierList>
+                <UserName>
+                  <h1>{data?.summonerName}</h1>
+                  <UserBookMark>
+                    <img
+                      src={Star}
+                      style={{
+                        width: "16px",
+                        height: "16px",
+                        opacity: "40%",
+                      }}
+                      alt="Star"
+                    ></img>
+                  </UserBookMark>
+                </UserName>
+                <UserRanking>래더 랭킹 1위 (상위 0.00001%)</UserRanking>
+                <RiotBtn>
                   <img
-                    src={Star}
+                    src={RiotIcon}
                     style={{
-                      width: "16px",
+                      with: "16px",
                       height: "16px",
+                    }}
+                    alt="RiotIcon"
+                  ></img>
+                  라이엇 계정 연동하고 나만의 프로필을 설정해보세요.
+                  <img
+                    src={RightArrow}
+                    style={{
+                      with: "10px",
+                      height: "10px",
+                      padding: "0px 5px",
                       opacity: "40%",
                     }}
-                    alt="Star"
+                    alt="RightArrow"
                   ></img>
-                </UserBookMark>
-              </UserName>
-              <UserRanking>래더 랭킹 1위 (상위 0.00001%)</UserRanking>
-              <RiotBtn>
-                <img
-                  src={RiotIcon}
-                  style={{
-                    with: "16px",
-                    height: "16px",
-                  }}
-                  alt="RiotIcon"
-                ></img>
-                라이엇 계정 연동하고 나만의 프로필을 설정해보세요.
-                <img
-                  src={RightArrow}
-                  style={{
-                    with: "10px",
-                    height: "10px",
-                    padding: "0px 5px",
-                    opacity: "40%",
-                  }}
-                  alt="RightArrow"
-                ></img>
-              </RiotBtn>
-              <InfoDiv>
-                <RenewalBtn>전적 갱신</RenewalBtn>
-                <TierGraph>티어 그래프</TierGraph>
-              </InfoDiv>
-              <UserUpdate>최근 업데이트: 방금전</UserUpdate>
-            </UserInfo>
-          </UserDataDiv>
-          <ClassifyDiv>
-            <ClassifyInfo>
-              <SynthesisBtn>종합</SynthesisBtn>
-              <ChampionBtn>챔피언</ChampionBtn>
-              <IngameInfo>인게임 정보</IngameInfo>
-            </ClassifyInfo>
-          </ClassifyDiv>
-        </UserInfoHeader>
-        <UserInfoBody>
-          <UserTierInfo>
-            <UserTier>
-              <SoloRank>솔로랭크</SoloRank>
-              <RankScore>
-                <div>
-                  <img
-                    src={Challenger}
+                </RiotBtn>
+                <InfoDiv>
+                  <RenewalBtn>전적 갱신</RenewalBtn>
+                  <TierGraph>티어 그래프</TierGraph>
+                </InfoDiv>
+                <UserUpdate>최근 업데이트: 방금전</UserUpdate>
+              </UserInfo>
+            </UserDataDiv>
+            <ClassifyDiv>
+              <ClassifyInfo>
+                <SynthesisBtn>종합</SynthesisBtn>
+                <ChampionBtn>챔피언</ChampionBtn>
+                <IngameInfo>인게임 정보</IngameInfo>
+              </ClassifyInfo>
+            </ClassifyDiv>
+          </UserInfoHeader>
+          <UserInfoBody>
+            <UserTierInfo>
+              <UserTier>
+                <SoloRank>솔로랭크</SoloRank>
+                <RankScore>
+                  <div>
+                    <img
+                      src={Challenger}
+                      style={{
+                        backgroundColor: "#F7F7F9",
+                        borderRadius: "50%",
+                        width: "72px",
+                      }}
+                      alt="Challenger"
+                    />
+                  </div>
+                  <div
                     style={{
-                      backgroundColor: "#F7F7F9",
-                      borderRadius: "50%",
-                      width: "72px",
+                      marginLeft: "16px",
                     }}
-                    alt="Challenger"
-                  />
-                </div>
-                <div
-                  style={{
-                    marginLeft: "16px",
-                  }}
-                >
-                  <RankName>Challenger</RankName>
-                  <RankLp>1,472 LP</RankLp>
-                </div>
-                <div
-                  style={{
-                    fontSize: "12px",
-                    textAlign: "right",
-                    color: "#9AA4AF",
-                  }}
-                >
-                  <ScoreWinLose>307승 239패</ScoreWinLose>
-                  <ScorePercentage>승률 56%</ScorePercentage>
-                </div>
-              </RankScore>
-            </UserTier>
-          </UserTierInfo>
-          <div
-            style={{
-              margin: " 8px 8px 8px 8px",
-            }}
-          >
-            <WinScoreContent>
-              <GameInfo>
-                <WinGameType>솔랭</WinGameType>
-                <GameTime>1분 전</GameTime>
-                <GameLine></GameLine>
-                <GameResult>승리</GameResult>
-                <GameLength>21분 40초</GameLength>
-              </GameInfo>
-              <PlayChampion>
-                <img
-                  src={Jinx}
-                  style={{
-                    borderRadius: "50%",
-                  }}
-                  alt="ChampionIcon"
-                />
-              </PlayChampion>
-              <PlayKda>
-                <PlayKdaInfo>
-                  <PlayKill>7</PlayKill>/<PlayDeath>0</PlayDeath>/
-                  <PlayAssist>4</PlayAssist>
-                </PlayKdaInfo>
-              </PlayKda>
-            </WinScoreContent>
-            <LoseScoreContent>
-              <GameInfo>
-                <LoseGameType>솔랭</LoseGameType>
-                <GameTime>1분 전</GameTime>
-                <GameLine></GameLine>
-                <GameResult>패배</GameResult>
-                <GameLength>21분 40초</GameLength>
-              </GameInfo>
-              <PlayChampion>
-                <img
-                  src={Jinx}
-                  style={{
-                    borderRadius: "50%",
-                  }}
-                  alt="ChampionIcon"
-                />
-              </PlayChampion>
-              <PlayKda>
-                <PlayKdaInfo>
-                  <PlayKill>3</PlayKill>/<PlayDeath>11</PlayDeath>/
-                  <PlayAssist>1</PlayAssist>
-                </PlayKdaInfo>
-              </PlayKda>
-            </LoseScoreContent>
-            <WinScoreContent>
-              <GameInfo>
-                <WinGameType>솔랭</WinGameType>
-                <GameTime>1분 전</GameTime>
-                <GameLine></GameLine>
-                <GameResult>승리</GameResult>
-                <GameLength>21분 40초</GameLength>
-              </GameInfo>
-              <PlayChampion>
-                <img
-                  src={Jinx}
-                  style={{
-                    borderRadius: "50%",
-                  }}
-                  alt="ChampionIcon"
-                />
-              </PlayChampion>
-              <PlayKda>
-                <PlayKdaInfo>
-                  <PlayKill>9</PlayKill>/<PlayDeath>2</PlayDeath>/
-                  <PlayAssist>1</PlayAssist>
-                </PlayKdaInfo>
-              </PlayKda>
-            </WinScoreContent>
-          </div>
-        </UserInfoBody>
-      </Contents>
+                  >
+                    <RankName>{data.tier}</RankName>
+                    <RankLp>{data.leaguePoints} LP</RankLp>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      textAlign: "right",
+                      color: "#9AA4AF",
+                    }}
+                  >
+                    <ScoreWinLose>
+                      {data.wins}승 {data.losses}패
+                    </ScoreWinLose>
+                    {winRate && (
+                      <ScorePercentage>승률 {winRate}%</ScorePercentage>
+                    )}
+                  </div>
+                </RankScore>
+              </UserTier>
+            </UserTierInfo>
+            <div
+              style={{
+                margin: " 8px 8px 8px 8px",
+              }}
+            >
+              {data?.matchResults.map((rank, index) =>
+                rank.winresult === true ? (
+                  <WinScoreContent key={index}>
+                    <GameInfo>
+                      <WinGameType>솔랭</WinGameType>
+                      <GameTime>1분 전</GameTime>
+                      <GameLine></GameLine>
+                      <GameResult>승리</GameResult>
+                      <GameLength>21분 40초</GameLength>
+                    </GameInfo>
+                    <PlayChampion>
+                      <img
+                        src={rank.championImg}
+                        style={{
+                          borderRadius: "50%",
+                        }}
+                        alt="ChampionIcon"
+                      />
+                    </PlayChampion>
+                    <PlayKda>
+                      <PlayKdaInfo>
+                        <PlayKill>{rank.kills}</PlayKill>/
+                        <PlayDeath>{rank.deaths}</PlayDeath>/
+                        <PlayAssist>{rank.assists}</PlayAssist>
+                      </PlayKdaInfo>
+                    </PlayKda>
+                  </WinScoreContent>
+                ) : (
+                  <LoseScoreContent key={index}>
+                    <GameInfo>
+                      <LoseGameType>솔랭</LoseGameType>
+                      <GameTime>1분 전</GameTime>
+                      <GameLine></GameLine>
+                      <GameResult>패배</GameResult>
+                      <GameLength>21분 40초</GameLength>
+                    </GameInfo>
+                    <PlayChampion>
+                      <img
+                        src={rank.championImg}
+                        style={{
+                          borderRadius: "50%",
+                        }}
+                        alt="ChampionIcon"
+                      />
+                    </PlayChampion>
+                    <PlayKda>
+                      <PlayKdaInfo>
+                        <PlayKill>{rank.kills}</PlayKill>/
+                        <PlayDeath>{rank.deaths}</PlayDeath>/
+                        <PlayAssist>{rank.assists}</PlayAssist>
+                      </PlayKdaInfo>
+                    </PlayKda>
+                  </LoseScoreContent>
+                )
+              )}
+            </div>
+          </UserInfoBody>
+        </Contents>
+      )}
     </Container>
   );
 };
@@ -340,6 +344,10 @@ const RenewalBtn = styled.button`
   border: 1px solid #5383e8;
   background: #5383e8;
   color: #fff;
+  &:hover {
+    background: #9cb3e4;
+    border: 1px solid #9cb3e4;
+  }
 `;
 
 const TierGraph = styled.button`
