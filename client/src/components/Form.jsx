@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { getAPI, postAPI } from "../axios";
 
 function Form() {
   const [showForm, setShowForm] = useState(false);
   const [inputValue1, setInputValue1] = useState('');
   const [inputValue2, setInputValue2] = useState('');
-  const [cards, setCards] = useState([]);
+  const [data, setData] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
+
+
+
+  useEffect(() => {
+    getAPI(
+      `/matches`
+    )
+      .then((data) => {
+        setData(data.data);
+        console.log("data :: ", data.data);
+      })
+      .catch((e) => {
+        console.log("e :: ", e);
+      });
+  }, []);
+
+
+  console.log(data);
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
@@ -20,16 +40,39 @@ function Form() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    const newCard = {
-      id: Math.random().toString(),
-      content1: inputValue1,
-      content2: inputValue2,
-    };
-    setCards([...cards, newCard]);
+
+    const data = {
+      title: inputValue1,
+      content: inputValue2,
+    }
+    const formData = new FormData();
+    formData.append('data', new Blob([JSON.stringify(data)], {
+      type: 'application/json'
+    }));
+    if (selectedFile) {
+      formData.append('img', selectedFile);
+    }
+
+    postAPI('/matches', formData)
+        .then(response => {
+            console.log(response);  
+            return getAPI('/matches');
+        })
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.error(error); 
+        });
+
     setInputValue1('');
     setInputValue2('');
-  };
+    setSelectedFile(null);
+};
 
+const handleFileChange = (event) => {
+  setSelectedFile(event.target.files[0]);
+};
   return (
     <div className="space-y-4">
       <div className="flex justify-start">
@@ -63,6 +106,7 @@ function Form() {
               onChange={handleInputChange2}
               placeholder="내용(200자 이내)"
             />
+            <input type="file" onChange={handleFileChange} />
             <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded" type="submit">
               등록
             </button>
@@ -72,11 +116,14 @@ function Form() {
 
       <div className="flex justify-center">
         <div className="grid grid-cols-3 gap-4">
-          {cards.map((card) => (
-            <div key={card.id} className="border border-gray-300 p-4 rounded w-80 h-56">
+          {data?.map((post, i) => (
+            <div key={i} className="border border-gray-300 p-4 rounded w-80 h-56">
               <div>
-                <div>소환사명:{card.content1}</div>
-                <div>내용:{card.content2}</div>
+                <div>소환사명:{post.title}</div>
+                <div>내용:{post.content}</div>
+                <div>사진:
+                <img src={post.img} alt="image" />
+                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-start">
                     <div><button className="text-sm font-bold bg-blue-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">채팅하기</button></div>
