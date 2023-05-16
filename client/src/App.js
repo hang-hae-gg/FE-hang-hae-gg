@@ -13,11 +13,16 @@ function App() {
   useEffect (() => {
     // URL에서 토큰을 파싱하고 쿠키에 저장
     const parsed = queryString.parse(window.location.search);
+    console.log(window.location.search)
+    console.log(parsed)
     if (parsed.Authorization) {
-      Cookies.set('Authorization', parsed.Authorization);
+      const token = parsed.Authorization.split('Bearer+')[1];
+      Cookies.set('Authorization', token);
     }
+    
     if (parsed['Authorization-refresh']) {
-      Cookies.set('Authorization-refresh', parsed['Authorization-refresh']);
+      const refreshToken = parsed['Authorization-refresh'].split('Bearer+')[1];
+      Cookies.set('Authorization-refresh', refreshToken);
     }
 
     // 쿠키에서 토큰 가져와서 저장
