@@ -23,7 +23,7 @@ export const ScoreSearch = () => {
     )
       .then((data) => {
         // TODO 서버 API 완료 시 data.data로 변경
-        if (data.status == 200) {
+        if (data.status === 200) {
           setData(data.data.data);
         }
       })
