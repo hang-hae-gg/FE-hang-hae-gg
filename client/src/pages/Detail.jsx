@@ -8,6 +8,7 @@ function Detail() {
   const navigate = useNavigate();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [data, setData] = useState();
+  const [memberName, setMemberName] = useState();
   const params = useParams();
 
 
@@ -17,11 +18,13 @@ function Detail() {
     )
       .then((data) => {
         setData(data.data);
+        setMemberName(data.data.memberName)
         console.log("data :: ", data.data);
       })
       .catch((e) => {
         console.log("e :: ", e);
       });
+      console.log(data)
   }, [params.id]);
 
 
@@ -75,7 +78,8 @@ return (
           </div>
         </div>
       </div>
-      {isChatOpen && <Chat params={params.id} sessionId={data.memberId} memberName={data.memberName} />}
+
+      {isChatOpen && <Chat params={params.id} sessionId={data.memberId} memberName={memberName} />}
     </div>
   </div>
 );
