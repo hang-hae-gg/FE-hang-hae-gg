@@ -89,7 +89,9 @@ function Chat({params, sessionId, memberName}) {
                 </div>
             </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default Chat
+export default Chat;
