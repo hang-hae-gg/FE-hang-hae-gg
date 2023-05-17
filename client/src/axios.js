@@ -14,7 +14,9 @@ axios.interceptors.request.use(
     if (accessToken) {
       config.headers["Authorization"] = "Bearer " + accessToken.trim();
     }
-    config.headers["Content-Type"] = "application/json";
+    if (!(config.url.includes('matches'))) {
+      config.headers['Content-Type'] = "application/json";
+    }
 
     console.log("config : ", config);
 
@@ -52,6 +54,6 @@ export function patchAPI(url, data) {
 
 export function boardPostAPI(url, data) {
   console.log("boardPostAPI Start, url : ", url, " user : ", data);
-  axios.defaults.headers.ContentType = "multipart/form-data";
+  // axios.defaults.headers['Content-Type'] = "multipart/form-data";
   return axios.post(API_BASE_URL + url, data);
 }
