@@ -122,7 +122,7 @@ const handleDetailPage = (postId) => {
 
       <div className="flex justify-center">
         <div className="grid grid-cols-3 gap-4">
-          {data?.map((post, i) => (
+          {data && data.map((post, i) => (
             <div key={i} className="border border-gray-300 p-4 rounded w-80 h-56">
               <div>
                 <div>소환사명:{post.title}</div>
