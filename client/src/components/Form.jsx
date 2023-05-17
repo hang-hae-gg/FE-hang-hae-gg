@@ -1,116 +1,127 @@
-import React, { useEffect, useState } from "react";
-import { getAPI, postAPI, boardPostAPI } from "../axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Form() {
   const [showForm, setShowForm] = useState(false);
-  const [inputValue1, setInputValue1] = useState('');
-  const [inputValue2, setInputValue2] = useState('');
-  const [data, setData] = useState();
-  const [selectedFile, setSelectedFile] = useState(null);
-  const navigate = useNavigate();
-
+  const [inputContent, setInputContent] = useState('');
+  const [cards, setCards] = useState([]);
+  const [memberName, setMemberName] = useState('');
+  const [memberId, setMemberId] = useState('');
 
   useEffect(() => {
-    getAPI(
-      `/matches`
-    )
-      .then((data) => {
-        setData(data.data);
-        console.log("data :: ", data.data);
-      })
-      .catch((e) => {
-        console.log("e :: ", e);
-      });
+    fetchCards();
+    fetchMemberId();
+    fetchMemberName();
   }, []);
 
+  const fetchCards = () => {
+    axios
+      .get('http://localhost:3000/matches') //api 연결
+      .then(response => {
+        setCards(response.data.matches || []);
+      })
+      .catch(error => {
+        console.error('Error fetching cards:', error);
+      });
+  };
 
-  console.log(data);
+  const fetchMemberId = () => {
+    axios
+      .get('http://localhost:3000/matches/memberId') //api 연결
+      .then(response => {
+        setMemberId(response.data.memberId);
+      })
+      .catch(error => {
+        console.error('Error fetching member ID:', error);
+      });
+  };
 
-  const handleToggleForm = () => {
+  const fetchMemberName = () => {
+    axios
+      .get('http://localhost:3000/matches/memberName')//api 연결
+      .then(response => {
+        setMemberName(response.data.memberName);
+      })
+      .catch(error => {
+        console.error('Error fetching member name:', error);
+      });
+  };
+
+  const toggleFormHandler = () => {
     setShowForm(!showForm);
   };
 
-  const handleInputChange1 = (event) => {
-    setInputValue1(event.target.value);
+  const contentHandler = event => {
+    setInputContent(event.target.value);
   };
 
-  const handleInputChange2 = (event) => {
-    setInputValue2(event.target.value);
-  };
-
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = event => {
     event.preventDefault();
 
-    const data = {
-      title: inputValue1,
-      content: inputValue2,
-    }
-    const formData = new FormData();
-    formData.append('data', new Blob([JSON.stringify(data)], {
-      type: 'application/json'
-    }));
-    if (selectedFile) {
-      formData.append('img', selectedFile);
-    }
+    const newCard = {
+      memberId: memberId,
+      memberName: memberName,
+      content: inputContent
+    };
 
-    boardPostAPI('/matches', formData)
-        .then(response => {
-            console.log(response);  
-            return getAPI('/matches');
-        })
-        .then(response => {
-            setData(response.data);
-        })
-        .catch(error => {
-            console.error(error); 
-        });
+    axios
+      .post('http://localhost:3000/matches', newCard) //api 연결
+      .then(response => {
+        const createdCard = response.data;
+        setCards([...cards, createdCard]);
+        setInputContent('');
+      })
+      .catch(error => {
+        console.error('Error creating card:', error);
+      });
+  };
 
-    setInputValue1('');
-    setInputValue2('');
-    setSelectedFile(null);
-};
+  const deleteHandler = id => {
+    axios
+      .delete(`http://localhost:3000/matches/${id}`) //api 연결
+      .then(() => {
+        setCards(cards.filter(card => card.id !== id));
+      })
+      .catch(error => {
+        console.error('Error deleting card:', error);
+      });
+  };
 
-const handleFileChange = (event) => {
-  setSelectedFile(event.target.files[0]);
-};
-
-const handleDetailPage = (postId) => {
-  navigate(`/community/${postId}`)
-}
-
+  const handleUpdateClick = () => {
+    fetchCards();
+  };
+  
   return (
     <div className="space-y-4">
       <div className="flex justify-start">
-        <button className="text-sm font-bold bg-black text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">
+        <button
+          className="text-sm font-bold bg-black text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans"
+          onClick={handleUpdateClick}
+        >
           업데이트
         </button>
+
         <button
-          className={`text-sm font-bold w-20 h-10 rounded-md border border-gray-300 font-sans 
-          ${showForm ? 'bg-white text-black' : 'bg-blue-500 text-white'}
-          `}
-          onClick={handleToggleForm}
+          className={`text-sm font-bold w-20 h-10 rounded-md border border-gray-300 font-sans ${
+            showForm ? 'bg-white text-black' : 'bg-blue-500 text-white'
+          }`}
+          onClick={toggleFormHandler}
         >
           {showForm ? '닫기' : '글쓰기'}
         </button>
       </div>
 
+
       {showForm && (
         <div className="flex justify-start">
           <form onSubmit={handleFormSubmit}>
             <input
-              className="border border-gray-300 px-4 py-2 rounded"
+              className="border border-gray-300 px-4 py-2 w-80 h-20	rounded"
               type="text"
-              value={inputValue1}
-              onChange={handleInputChange1}
-              placeholder="소환사명"
-            />
-            <input
-              className="border border-gray-300 px-4 py-2 rounded"
-              type="text"
-              value={inputValue2}
-              onChange={handleInputChange2}
+              value={inputContent}
+              onChange={contentHandler}
               placeholder="내용(200자 이내)"
+              maxLength={200}
             />
             <input type="file" onChange={handleFileChange} />
             <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded" type="submit">
@@ -122,26 +133,37 @@ const handleDetailPage = (postId) => {
 
       <div className="flex justify-center">
         <div className="grid grid-cols-3 gap-4">
-          {data && data.map((post, i) => (
-            <div key={i} className="border border-gray-300 p-4 rounded w-80 h-56">
-              <div>
-                <div>소환사명:{post.title}</div>
-                <div>내용:{post.content}</div>
-                <div>사진:
-                <img src={post.img} alt="post" />
-                 </div>
-                <div className="space-y-4">
-                  <div className="flex justify-start">
-                    <div><button 
-                    onClick={() => handleDetailPage(post.boardId)}
-                    className="text-sm font-bold bg-blue-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">
-                      상세보기</button></div>
-                    <div><button className="text-sm font-bold bg-red-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">게시글 삭제</button></div>
+
+          {cards.length > 0 ? (
+            cards.map(card => (
+              <div key={card.id} className="border border-gray-300 p-4 rounded w-80 h-56">
+                <div>
+                  <div>작성자: {card.nickName}</div> {/* 사용자 닉네임 표시? */}
+                  <div>내용: {card.content}</div>
+                  <div className="space-y-4">
+                    <div className="flex justify-start">
+                      <div>
+                        <button className="text-sm font-bold bg-blue-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">
+                          상세보기
+                        </button>
+                      </div>
+                      <button
+                        className="text-sm font-bold bg-red-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans"
+                        onClick={() => deleteHandler(card.id)}
+                      >
+                        게시글 삭제
+                      </button>
+                    </div>
+
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="text-center">
+              게시글이 없습니다. 첫 글을 작성해주세요!
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
