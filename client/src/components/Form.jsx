@@ -101,7 +101,8 @@ function Form() {
 
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
+      <div className="space-y-2" />
       <div className="flex justify-start">
         <button className="text-sm font-bold bg-black text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">
           업데이트
@@ -131,15 +132,24 @@ function Form() {
               type="text"
               value={inputValue2}
               onChange={handleInputChange2}
-              placeholder="내용(200자 이내)"
+              placeholder="내용"
             />
-            <input type="file" onChange={handleFileChange} />
-            <button
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-              type="submit"
-            >
-              등록
-            </button>
+            <div className="space-y-2">
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="border border-gray-300 px-4 py-2 rounded bg-blue-500 text-white font-bold"
+              />
+              <button
+                className="bg-blue-500 text-white font-bold w-20 h-12	rounded"
+                type="submit"
+              >
+                등록
+              </button>
+
+              <div>
+              </div>
+            </div>
           </form>
         </div>
       )}
@@ -149,15 +159,22 @@ function Form() {
           {data?.map((post, i) => (
             <div
               key={i}
-              className="border border-gray-300 p-4 rounded w-80 h-56"
+              className="border border-gray-300 p-4 rounded w-80 h-auto"
             >
               <div>
                 <div>소환사명:{post.title}</div>
                 <div>내용:{post.content}</div>
-                <div>
-                  사진:
-                  <img src={post.img} alt="post" />
+                <div className="flex justify-center">
+                  <div className="h-40 overflow-hidden">
+                    <img src={post.img} alt="post" />
+                  </div>
+                  <img
+                    src={post.img}
+                    alt="post"
+                    className="w-full h-full"
+                  />
                 </div>
+
                 <div className="space-y-4">
                   <div className="flex justify-start">
                     <div>
