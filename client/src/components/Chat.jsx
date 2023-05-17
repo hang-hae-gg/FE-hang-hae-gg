@@ -24,13 +24,11 @@ function Chat({params, sessionId, memberName}) {
 console.log(memberName)
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
-    const [boardId, SetBoardId] =useState('');
-    const [boardUserId, SetBoardUserId] =useState('');
     const [guestId, setGuestId] = useState(null);
     const userId = useSelector((state) => state.auth.userId);
     const webSocket = useRef(null);
   
-    console.log("gg" ,userId, boardId, memberName)
+
     useEffect(() => {
 
         webSocket.current = new WebSocket("ws://localhost:8080/ws/chat");
@@ -71,7 +69,7 @@ console.log(memberName)
     const handleSendMessage = () => {
         if (webSocket.current) {
             let receiverId;
-            if (userId == memberName) {
+            if (userId === memberName) {
                 // If the current user is the author of the post, the receiver is the guest
                 receiverId = guestId;
             } else {
