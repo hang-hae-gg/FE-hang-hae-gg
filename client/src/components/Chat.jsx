@@ -19,10 +19,12 @@ function Chat({ params, sessionId, memberName }) {
   // ];
   // const socket = io.connect("ws://localhost:8080/ws/chat");
 
+  console.log(memberName);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [boardId, SetBoardId] = useState("");
   const [boardUserId, SetBoardUserId] = useState("");
+  const [guestId, setGuestId] = useState(null);
   const userId = useSelector((state) => state.auth.userId);
   const webSocket = useRef(null);
 
@@ -33,6 +35,14 @@ function Chat({ params, sessionId, memberName }) {
 
     webSocket.current.onmessage = (message) => {
       const data = JSON.parse(message.data);
+
+      if (data.newOne) {
+        // Checking if 'newOne' is not equal to 'master'
+        if (data.newOne !== "master") {
+          setGuestId(data.newOne);
+          // console.log(guestId)
+        }
+      }
       setMessages((prevMessages) => [...prevMessages, data]);
 
       // Save to sessionStorage
@@ -57,11 +67,24 @@ function Chat({ params, sessionId, memberName }) {
 
   const handleSendMessage = () => {
     if (webSocket.current) {
+      let receiverId;
+      if (userId == memberName) {
+        // If the current user is the author of the post, the receiver is the guest
+        receiverId = guestId;
+      } else {
+        // If the current user is not the author, the receiver is the author
+        receiverId = "master";
+      }
+      console.log(userId, memberName);
+      console.log(receiverId);
+      console.log(guestId);
       webSocket.current.send(
         JSON.stringify({
           message: input,
+          receiverId: receiverId,
         })
       );
+
       setInput("");
     }
   };
