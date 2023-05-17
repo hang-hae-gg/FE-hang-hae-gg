@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Chat from "../components/Chat";
 import "../App.css";
-import { useSelector } from "react-redux";
 import { getAPI } from "../axios";
 
 function Detail() {
   const navigate = useNavigate();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [data, setData] = useState();
-  const userId = useSelector((state) => state.auth.userId);
   const params = useParams();
 
 
@@ -29,10 +27,9 @@ function Detail() {
 
 const handleGetRequest = () => {
 const boardId = params.id
-// const myId = userId
   getAPI(
     // `/chat/${boardId}?sessionId=${data.memberId}`
-    `/chat/${boardId}`
+    `/chat/?boardId=${boardId}`
   )
     .then((data) => {
       setData(data.data);
