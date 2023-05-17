@@ -50,8 +50,7 @@ export function patchAPI(url, data) {
   return axios.patch(API_BASE_URL + url, data);
 }
 
-export function boardPostAPI(url, data) {
+export function boardPostAPI(url, data, config) {
   console.log("boardPostAPI Start, url : ", url, " user : ", data);
-  axios.defaults.headers.ContentType = "multipart/form-data";
-  return axios.post(API_BASE_URL + url, data);
+  return axios.post(API_BASE_URL + url, data, config);
 }
