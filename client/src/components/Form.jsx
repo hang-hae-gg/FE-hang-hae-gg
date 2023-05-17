@@ -57,6 +57,7 @@ function Form() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
+
     const newCard = {
       memberId: memberId,
       memberName: memberName,
@@ -122,6 +123,7 @@ function Form() {
               placeholder="내용(200자 이내)"
               maxLength={200}
             />
+            <input type="file" onChange={handleFileChange} />
             <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded" type="submit">
               등록
             </button>
@@ -131,6 +133,7 @@ function Form() {
 
       <div className="flex justify-center">
         <div className="grid grid-cols-3 gap-4">
+
           {cards.length > 0 ? (
             cards.map(card => (
               <div key={card.id} className="border border-gray-300 p-4 rounded w-80 h-56">
@@ -151,6 +154,7 @@ function Form() {
                         게시글 삭제
                       </button>
                     </div>
+
                   </div>
                 </div>
               </div>

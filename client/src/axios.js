@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 const API_BASE_URL = `${process.env.REACT_APP_SERVER_URL}`;
 
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+// axios.defaults.headers.ContentType = "application/json";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use(
@@ -13,9 +14,12 @@ axios.interceptors.request.use(
     if (accessToken) {
       config.headers["Authorization"] = "Bearer " + accessToken.trim();
     }
+    if (!(config.url.includes('matches'))) {
+      config.headers['Content-Type'] = "application/json";
+    }
 
-    config.headers["Content-Type"] = "application/json";
-    console.log("config :: ", config);
+    console.log("config : ", config);
+
     return config;
   },
   (error) => {
@@ -46,4 +50,10 @@ export function deleteAPI(url) {
 export function patchAPI(url, data) {
   console.log("PATCH Start, url : ", url, " user : ", data);
   return axios.patch(API_BASE_URL + url, data);
+}
+
+export function boardPostAPI(url, data) {
+  console.log("boardPostAPI Start, url : ", url, " user : ", data);
+  // axios.defaults.headers['Content-Type'] = "multipart/form-data";
+  return axios.post(API_BASE_URL + url, data);
 }
