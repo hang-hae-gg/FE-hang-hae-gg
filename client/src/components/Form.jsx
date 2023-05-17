@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAPI, postAPI } from "../axios";
+import { getAPI, postAPI, boardPostAPI } from "../axios";
 import { useNavigate } from "react-router-dom";
 
 function Form() {
@@ -54,7 +54,7 @@ function Form() {
       formData.append('img', selectedFile);
     }
 
-    postAPI('/matches', formData)
+    boardPostAPI('/matches', formData)
         .then(response => {
             console.log(response);  
             return getAPI('/matches');

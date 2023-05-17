@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from "react-redux";
 
 
-function Chat({params, sessionId}) {
+function Chat({params, sessionId, memberName}) {
 
     // 본인의 메세지인지 아닌지를 구분하는 isUser
     // const messages = [
@@ -25,18 +25,26 @@ function Chat({params, sessionId}) {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [boardId, SetBoardId] =useState('');
+    const [boardUserId, SetBoardUserId] =useState('');
     const userId = useSelector((state) => state.auth.userId);
     const webSocket = useRef(null);
   
-    console.log("gg" ,userId, boardId)
+    console.log("gg" ,userId, boardId, memberName)
     useEffect(() => {
-        SetBoardId(params)
-
         webSocket.current = new WebSocket("ws://localhost:8080/ws/chat");
         console.log(webSocket.current)
+
         webSocket.current.onmessage = (message) => {
             const data = JSON.parse(message.data);
             setMessages((prevMessages) => [...prevMessages, data]);
+
+            // Save to sessionStorage
+            let container = sessionStorage.getItem(data.senderId) 
+                ? JSON.parse(sessionStorage.getItem(data.senderId)) 
+                : [];
+
+            container.push(data);
+            sessionStorage.setItem(data.senderId, JSON.stringify(container));
         };
 
         webSocket.current.onclose = () => {
@@ -53,13 +61,9 @@ function Chat({params, sessionId}) {
     const handleSendMessage = () => {
         if (webSocket.current) {
             webSocket.current.send(JSON.stringify({ 
-                // sessionId: sessionId,
-                senderId:"master",
-                receiverId:"222",
                 message: input }));
             setInput('');
         }
-        console.log(sessionId)
     };
 
     console.log("message => " ,messages)
