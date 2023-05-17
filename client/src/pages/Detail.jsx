@@ -1,26 +1,46 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Chat from "../components/Chat";
 import "../App.css";
+import { getAPI } from "../axios";
 
 function Detail() {
   const navigate = useNavigate();
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [data, setData] = useState();
+  const params = useParams();
+
+
+  useEffect(() => {
+    getAPI(
+      `/matches/${params.id}`
+    )
+      .then((data) => {
+        setData(data.data);
+        console.log("data :: ", data.data);
+      })
+      .catch((e) => {
+        console.log("e :: ", e);
+      });
+  },[params.id]);
+
 
   return (
+
     <div className="flex flex-1 items-center justify-center py-16 bg-[#F3F5F7]/50 h-screen ">
       <div className="flex gap-10 ">
         <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center w-[700px] h-[600px] px-10">
           <div className="flex flex-1 flex-col  items-center">
             <div>
               <div className="min-w-[270px] bg-transparent border-b  py-3 mt-10 outline-none w-full border-[#5383e8]">
-                작성자
+             {data?.memberId}
               </div>
               <div className="min-w-[270px] bg-transparent border-b  py-3 mt-10 outline-none w-full border-[#5383e8]">
-                제목
+              {data?.title}
               </div>
               <div className="min-w-[270px] bg-transparent border-b py-3 mt-10 outline-none w-full border-[#5383e8]">
-                내용
+              {data?.content}
+              <img src={data?.img} alt="post" />
               </div>
             </div>
             <div className="flex gap-5 mt-5">

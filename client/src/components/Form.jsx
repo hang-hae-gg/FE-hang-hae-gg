@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAPI, postAPI } from "../axios";
+import { useNavigate } from "react-router-dom";
 
 function Form() {
   const [showForm, setShowForm] = useState(false);
@@ -7,7 +8,7 @@ function Form() {
   const [inputValue2, setInputValue2] = useState('');
   const [data, setData] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -73,6 +74,11 @@ function Form() {
 const handleFileChange = (event) => {
   setSelectedFile(event.target.files[0]);
 };
+
+const handleDetailPage = (postId) => {
+  navigate(`/community/${postId}`)
+}
+
   return (
     <div className="space-y-4">
       <div className="flex justify-start">
@@ -122,11 +128,14 @@ const handleFileChange = (event) => {
                 <div>소환사명:{post.title}</div>
                 <div>내용:{post.content}</div>
                 <div>사진:
-                <img src={post.img} alt="image" />
+                <img src={post.img} alt="post" />
                  </div>
                 <div className="space-y-4">
                   <div className="flex justify-start">
-                    <div><button className="text-sm font-bold bg-blue-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">채팅하기</button></div>
+                    <div><button 
+                    onClick={() => handleDetailPage(post.boardId)}
+                    className="text-sm font-bold bg-blue-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">
+                      상세보기</button></div>
                     <div><button className="text-sm font-bold bg-red-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">게시글 삭제</button></div>
                   </div>
                 </div>

@@ -13,8 +13,32 @@ export const ScoreSearch = () => {
   const summonersInfo = { ...location.state };
   const [data, setData] = useState();
   const [winRate, setWinRate] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [matchResultsData, setMatchResultsData] = useState();
 
   // const data = scoresearchData;
+  const nextPage = currentPage + 1;
+
+  const handleLoadMore = () => {
+    getAPI(
+      `/summonerByName?page=${nextPage}&size=10&summonerName=${summonersInfo.summoners}`
+    )
+      .then((data) => {
+        console.log("data :: ", data);
+        if (data.status === 200) {
+          // 기존 데이터에 새로운 페이지의 데이터를 추가합니다.
+          setData(data.data.data);
+          setMatchResultsData([
+            ...matchResultsData,
+            ...data.data.data.matchResults,
+          ]);
+          setCurrentPage(nextPage); // 현재 페이지 업데이트
+        }
+      })
+      .catch((error) => {
+        console.log("API 요청 중 에러 발생:", error);
+      });
+  };
 
   // TODO GET 호출
   useEffect(() => {
@@ -25,6 +49,7 @@ export const ScoreSearch = () => {
         // TODO 서버 API 완료 시 data.data로 변경
         if (data.status === 200) {
           setData(data.data.data);
+          setMatchResultsData(data.data.data.matchResults);
         }
       })
       .catch((e) => {
@@ -46,6 +71,7 @@ export const ScoreSearch = () => {
   // };
 
   console.log("data ::", data);
+  console.log("matchResultsData ::", matchResultsData);
 
   return (
     <Container>
@@ -160,7 +186,7 @@ export const ScoreSearch = () => {
                 margin: " 8px 8px 8px 8px",
               }}
             >
-              {data?.matchResults.map((rank, index) =>
+              {matchResultsData?.map((rank, index) =>
                 rank.winresult === true ? (
                   <WinScoreContent key={index}>
                     <GameInfo>
@@ -169,7 +195,7 @@ export const ScoreSearch = () => {
                       <GameLine></GameLine>
                       <GameResult>승리</GameResult>
                       <GameLength>
-                        {rank.playtimesecond}분 {rank.playtimeminute}초
+                        {rank.playtimeminute}분 {rank.playtimesecond}초
                       </GameLength>
                     </GameInfo>
                     <PlayChampion>
@@ -197,7 +223,7 @@ export const ScoreSearch = () => {
                       <GameLine></GameLine>
                       <GameResult>패배</GameResult>
                       <GameLength>
-                        {rank.playtimesecond}분 {rank.playtimeminute}초
+                        {rank.playtimeminute}분 {rank.playtimesecond}초
                       </GameLength>
                     </GameInfo>
                     <PlayChampion>
@@ -219,6 +245,7 @@ export const ScoreSearch = () => {
                   </LoseScoreContent>
                 )
               )}
+              <NextPageBtn onClick={handleLoadMore}>더 보기</NextPageBtn>
             </div>
           </UserInfoBody>
         </Contents>
@@ -599,4 +626,22 @@ const PlayDeath = styled.div`
 const PlayAssist = styled.div`
   color: #202d37;
   margin-left: 2px;
+`;
+
+const NextPageBtn = styled.button`
+  border-width: 1px;
+  border-style: solid;
+  border-image: initial;
+  border-color: #dbe0e4;
+  background-color: #fff;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 8px 0px;
+  color: #202d37;
+  font-size: 13px;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
 `;
