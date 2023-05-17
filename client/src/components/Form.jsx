@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAPI, boardPostAPI } from "../axios";
+import { getAPI, boardPostAPI, deleteAPI } from "../axios";
 import { useNavigate } from "react-router-dom";
 
 function Form() {
@@ -87,6 +87,22 @@ function Form() {
     navigate(`/community/${postId}`);
   };
 
+  const handleDeletePost = async (postId) => {
+    try {
+      await deleteAPI(`/matches/${postId}`);
+      getAPI(`/matches`)
+        .then((data) => {
+          setData(data.data);
+        })
+        .catch((e) => {
+          console.log("e :: ", e);
+        });
+    } catch (error) {
+      console.log("error :: ", error);
+    }
+  };
+  
+
   return (
     <div className="space-y-4">
       <div className="flex justify-start">
@@ -156,7 +172,10 @@ function Form() {
                       </button>
                     </div>
                     <div>
-                      <button className="text-sm font-bold bg-red-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans">
+                      <button
+                        onClick={() => handleDeletePost(post.boardId)}
+                        className="text-sm font-bold bg-red-500 text-white w-20 h-10 flex justify-center items-center rounded-md border border-gray-300 font-sans"
+                      >
                         게시글 삭제
                       </button>
                     </div>
@@ -172,3 +191,4 @@ function Form() {
 }
 
 export default Form;
+
