@@ -92,33 +92,35 @@ function Chat({ params, sessionId, memberName }) {
   console.log("message => ", messages);
 
   return (
-    <div className="flex flex-col w-[400px] h-[600px] bg-[#f3f3f3]  rounded-xl">
-      <div className="flex flex-col overflow-y-auto">
-        {/* isUser가 ture면 오른쪽에서, false면 왼쪽에서 나타남 */}
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`message ${message.isUser ? "user" : "other"}`}
-          >
-            {message.message}
+    <>
+      <div className="flex flex-col w-[400px] h-[600px] bg-[#f3f3f3]  rounded-xl">
+        <div className="flex flex-col overflow-y-auto">
+          {/* isUser가 ture면 오른쪽에서, false면 왼쪽에서 나타남 */}
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`message ${message.isUser ? "user" : "other"}`}
+            >
+              {message.message}
+            </div>
+          ))}
+        </div>
+        <div className="flex bg-[#fff] w-[400px] mt-auto  rounded-xl">
+          <div className="flex flex-1 justify-between mx-5 items-center gap-5">
+            <input
+              onChange={(e) => setInput(e.target.value)}
+              className="bg-transparent border-b m mb-3 mt-5 outline-none w-full focus:border-[#5383e8]"
+            ></input>
+            <button
+              onClick={handleSendMessage}
+              className="bg-[#5383e8] w-[100px] h-[40px] rounded-xl"
+            >
+              보내기
+            </button>
           </div>
-        ))}
-      </div>
-      <div className="flex bg-[#fff] w-[400px] mt-auto  rounded-xl">
-        <div className="flex flex-1 justify-between mx-5 items-center gap-5">
-          <input
-            onChange={(e) => setInput(e.target.value)}
-            className="bg-transparent border-b m mb-3 mt-5 outline-none w-full focus:border-[#5383e8]"
-          ></input>
-          <button
-            onClick={handleSendMessage}
-            className="bg-[#5383e8] w-[100px] h-[40px] rounded-xl"
-          >
-            보내기
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
