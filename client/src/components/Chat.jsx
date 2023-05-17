@@ -31,8 +31,8 @@ function Chat({ params, sessionId, memberName }) {
 
 
     useEffect(() => {
-
-        webSocket.current = new WebSocket("ws://localhost:8080/ws/chat");
+        
+        webSocket.current = new WebSocket(`${process.env.REACT_APP_WS_SERVER_URL}`);
         console.log(webSocket.current)
 
         webSocket.current.onmessage = (message) => {
