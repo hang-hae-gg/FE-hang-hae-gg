@@ -79,6 +79,17 @@ function Form() {
     setSelectedFile(null);
   };
 
+  const handleDeletePost = (postId) => {
+    deleteAPI(`/matches/${postId}`)
+      .then((response) => {
+        console.log("Deleted successfully");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("error", error);
+      });
+  };
+
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -87,21 +98,6 @@ function Form() {
     navigate(`/community/${postId}`);
   };
 
-  const handleDeletePost = async (postId) => {
-    try {
-      await deleteAPI(`/matches/${postId}`);
-      getAPI(`/matches`)
-        .then((data) => {
-          setData(data.data);
-        })
-        .catch((e) => {
-          console.log("e :: ", e);
-        });
-    } catch (error) {
-      console.log("error :: ", error);
-    }
-  };
-  
 
   return (
     <div className="space-y-4">
@@ -152,14 +148,19 @@ function Form() {
           {data?.map((post, i) => (
             <div
               key={i}
-              className="border border-gray-300 p-4 rounded w-80 h-56"
+              className="border border-gray-300 p-4 rounded w-64 h-auto"
             >
               <div>
-                <div>소환사명:{post.title}</div>
-                <div>내용:{post.content}</div>
-                <div>
-                  사진:
-                  <img src={post.img} alt="post" />
+                <div>닉네임: {post.title}</div>
+                <div>내용: {post.content}</div>
+                <div className="flex justify-center">
+                  <div className="h-40 overflow-hidden">
+                    <img
+                      src={post.img}
+                      alt="post"
+                      className="w-full h-auto"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-start">
@@ -191,3 +192,4 @@ function Form() {
 }
 
 export default Form;
+
