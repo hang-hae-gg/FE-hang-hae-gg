@@ -86,7 +86,8 @@ function Form() {
         window.location.reload();
       })
       .catch((error) => {
-        console.error("error", error);
+        alert(error.response.data.message)
+        console.error("error", error.response.data.message);
       });
   };
 
