@@ -48,7 +48,7 @@ function Chat({params, sessionId}) {
                 webSocket.current.close();
             }
         };
-    }, []);
+    }, [params]);
 
     const handleSendMessage = () => {
         if (webSocket.current) {
@@ -59,7 +59,6 @@ function Chat({params, sessionId}) {
                 message: input }));
             setInput('');
         }
-        console.log(sessionId)
     };
 
     console.log("message => " ,messages)

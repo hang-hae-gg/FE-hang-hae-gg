@@ -27,9 +27,10 @@ function Detail() {
 
 const handleGetRequest = () => {
 const boardId = params.id
+console.log("boardId", boardId)
   getAPI(
     // `/chat/${boardId}?sessionId=${data.memberId}`
-    `/chat/?boardId=${boardId}`
+    `/chat?boardId=${boardId}`
   )
     .then((data) => {
       setData(data.data);
