@@ -16,12 +16,12 @@ function App() {
     console.log(window.location.search)
     console.log(parsed)
     if (parsed.Authorization) {
-      const token = parsed.Authorization.split('Bearer+')[1];
+      const token = parsed.Authorization.split(' ')[1];
       Cookies.set('Authorization', token);
     }
     
     if (parsed['Authorization-refresh']) {
-      const refreshToken = parsed['Authorization-refresh'].split('Bearer+')[1];
+      const refreshToken = parsed['Authorization-refresh'].split(' ')[1];
       Cookies.set('Authorization-refresh', refreshToken);
     }
 

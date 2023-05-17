@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 const API_BASE_URL = `${process.env.REACT_APP_SERVER_URL}`;
 
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+// axios.defaults.headers.ContentType = "application/json";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use(
@@ -13,8 +14,9 @@ axios.interceptors.request.use(
     if (accessToken) {
       config.headers["Authorization"] = "Bearer " + accessToken.trim();
     }
-
     config.headers["Content-Type"] = "application/json";
+
+    console.log("config : ", config);
 
     return config;
   },
@@ -50,9 +52,6 @@ export function patchAPI(url, data) {
 
 export function boardPostAPI(url, data) {
   console.log("boardPostAPI Start, url : ", url, " user : ", data);
-  return axios.post(API_BASE_URL + url, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  axios.defaults.headers.ContentType = "multipart/form-data";
+  return axios.post(API_BASE_URL + url, data);
 }
