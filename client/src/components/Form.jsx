@@ -79,6 +79,17 @@ function Form() {
     setSelectedFile(null);
   };
 
+  const handleDeletePost = (postId) => {
+    deleteAPI(`/matches/${postId}`)
+      .then((response) => {
+        console.log("Deleted successfully");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("error", error);
+      });
+  };
+
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -87,21 +98,6 @@ function Form() {
     navigate(`/community/${postId}`);
   };
 
-  const handleDeletePost = async (postId) => {
-    try {
-      await deleteAPI(`/matches/${postId}`);
-      getAPI(`/matches`)
-        .then((data) => {
-          setData(data.data);
-        })
-        .catch((e) => {
-          console.log("e :: ", e);
-        });
-    } catch (error) {
-      console.log("error :: ", error);
-    }
-  };
-  
 
   return (
     <div className="space-y-4">
