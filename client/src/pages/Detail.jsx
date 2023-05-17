@@ -75,7 +75,7 @@ return (
           </div>
         </div>
       </div>
-      {isChatOpen && <Chat params={params.id} sessionId={data.memberId} />}
+      {isChatOpen && <Chat params={params.id} sessionId={data.memberId} memberName={data.memberName} />}
     </div>
   </div>
 );
