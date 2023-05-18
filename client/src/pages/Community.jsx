@@ -1,5 +1,5 @@
 import Form from "../components/Form";
-import Styled, { styled } from "styled-components";
+import { styled } from "styled-components";
 
 function Community() {
   return (
