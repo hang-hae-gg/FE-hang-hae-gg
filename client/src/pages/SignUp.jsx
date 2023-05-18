@@ -214,8 +214,8 @@ const SignUp = () => {
                 console.error("1", response)
             }
         } catch (error) {
-            console.error(error)
-            alert("2", error)
+            console.error(error.response.data.message)
+            alert(error.response.data.message)
         }
     }
     

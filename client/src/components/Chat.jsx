@@ -31,8 +31,8 @@ function Chat({ params, sessionId, memberName }) {
 
 
     useEffect(() => {
-
-        webSocket.current = new WebSocket("ws://localhost:8080/ws/chat");
+        
+        webSocket.current = new WebSocket(`${process.env.REACT_APP_WS_SERVER_URL}`);
         console.log(webSocket.current)
 
         webSocket.current.onmessage = (message) => {
@@ -81,12 +81,22 @@ function Chat({ params, sessionId, memberName }) {
                 // If the current user is not the author, the receiver is the author
                 receiverId = "master";
             }
+
+            let senderId;
+            if (userId === memberName) {
+                // If the current user is the author of the post, the receiver is the guest
+                senderId = "master";
+            } else {
+                // If the current user is not the author, the receiver is the author
+                senderId = guestId;
+            }
             console.log(userId, memberName)
             console.log(receiverId)
             console.log(guestId)
             webSocket.current.send(JSON.stringify({
                 message: input,
-                receiverId: receiverId
+                receiverId: receiverId,
+                senderId: senderId
             }));
 
             setInput('');
